@@ -8,6 +8,7 @@ import User from "./components/User";
 import EditProducts from "./components/EditProducts";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
+import Editprofile from "./components/Editprofile";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -43,6 +44,10 @@ function App() {
             <Route
               path="/Editproducts"
               element={<EditProducts></EditProducts>}
+            ></Route>
+            <Route
+              path="/editprofile"
+              element={<Editprofile user={user}></Editprofile>}
             ></Route>
           </Routes>
         </>
