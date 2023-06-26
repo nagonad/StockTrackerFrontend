@@ -36,20 +36,26 @@ function App() {
         </>
       ) : (
         <>
-          <Navbar></Navbar>
-          <Sidebar></Sidebar>
-          <Routes>
-            <Route path="/" element={<Dashboard></Dashboard>}></Route>
-            <Route path="/users" element={<User></User>}></Route>
-            <Route
-              path="/Editproducts"
-              element={<EditProducts></EditProducts>}
-            ></Route>
-            <Route
+
+          <Navbar user={user}></Navbar>
+          <div className="bodyContent">
+            <Sidebar></Sidebar>
+            <div id="bodyContentRight">
+              <Routes>
+                <Route path="/" element={<Dashboard></Dashboard>}></Route>
+                <Route path="/users" element={<User></User>}></Route>
+                <Route
+                  path="/Editproducts"
+                  element={<EditProducts></EditProducts>}
+                ></Route>
+              <Route
               path="/editprofile"
               element={<Editprofile user={user}></Editprofile>}
             ></Route>
-          </Routes>
+              </Routes>
+            </div>
+          </div>
+
         </>
       )}
     </>

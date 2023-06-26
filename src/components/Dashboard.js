@@ -1,3 +1,29 @@
+
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import {
+  Button,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Grid,
+  Box,
+  TextField,
+  Typography,
+} from "@material-ui/core";
+import {
+  Euro as EuroIcon,
+  ShoppingCart as ShoppingCartIcon,
+} from "@material-ui/icons";
+
+export default function Dashboard() {
+  const [stockInfo, setStockInfo] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
@@ -11,32 +37,40 @@ export default function Dashboard() {
 
   const [page, setPage] = useState(0);
   const rowsPerPage = 10;
+
   useEffect(() => {
     const fetchStockInfo = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/stockinfo');
+        const response = await axios.get("http://localhost:8080/stockinfo");
         console.log(response);
         if (!Array.isArray(response.data)) {
-          console.error('Data from server is not an array:', response.data);
+          console.error("Data from server is not an array:", response.data);
         } else {
           setStockInfo(response.data);
         }
       } catch (error) {
-        console.error('Failed to fetch stockInfo', error);
-      }  
+        console.error("Failed to fetch stockInfo", error);
+      }
     };
-  
+
     fetchStockInfo();
   }, []);
 
-  const totalValue = stockInfo.reduce((total, item) => total + item.totalPrice, 0);
-  const outOfStockCount = stockInfo.filter(item => item.quantity === 0).length;
-  const categories = [...new Set(stockInfo.map(item => item.category))].length;
+  const totalValue = stockInfo.reduce(
+    (total, item) => total + item.totalPrice,
+    0
+  );
+  const outOfStockCount = stockInfo.filter(
+    (item) => item.quantity === 0
+  ).length;
+  const categories = [...new Set(stockInfo.map((item) => item.category))]
+    .length;
 
   const filteredStockInfo = stockInfo.filter(item => item.name.toLowerCase().includes(searchTerm.toLowerCase()));
   const totalPages = Math.ceil(filteredStockInfo.length / rowsPerPage);
 
   return (
+
     <Box m={8}> 
         <Grid container spacing={3}>
             <Grid item xs={12}> 
@@ -88,6 +122,7 @@ export default function Dashboard() {
                 <PaginationDashboard page={page} setPage={setPage} totalPages={totalPages} />
 
             </Grid>
+
         </Grid>
     </Box>
 );
