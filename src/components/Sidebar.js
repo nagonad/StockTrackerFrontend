@@ -31,7 +31,7 @@ export default function Sidebar() {
         </ListItem>
         <Divider />
         <ListItem sx={{ padding: "0" }}>
-          <NavLink className="sidebarNavlink" to="/users">
+          <NavLink className="sidebarNavlink" to="/editprofile">
             <PeopleIcon></PeopleIcon>
             <ListItemText sx={{ color: "#000000" }}>User Profile</ListItemText>
           </NavLink>

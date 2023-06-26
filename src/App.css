@@ -133,7 +133,6 @@ input {
 }
 
 .logoContainer {
-
   display: flex;
   align-items: center;
 }
@@ -167,7 +166,6 @@ input {
 }
 
 .user {
-
   width: 40px;
   height: 40px;
   background: #d9d9d9;
@@ -179,7 +177,6 @@ input {
   align-items: center;
   font-family: Roboto;
   font-size: 1.25rem;
-
 }
 
 .refresdark button:hover {
@@ -224,7 +221,7 @@ input {
 #bodyContentRight {
   margin-left: 100px;
   margin-top: 80px;
-
+}
 
 .Editprofile {
   margin-top: 9vh;
@@ -279,5 +276,4 @@ input {
 
 .error {
   margin-button: 50px;
-
 }
