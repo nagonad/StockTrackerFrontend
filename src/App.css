@@ -221,6 +221,7 @@ input {
 #bodyContentRight {
   margin-left: 100px;
   margin-top: 80px;
+  width: 100%;
 }
 
 .Editprofile {
@@ -275,5 +276,9 @@ input {
 }
 
 .error {
-  margin-button: 50px;
+  margin-bottom: 50px;
+}
+
+.tableCell {
+  padding: 6px !important;
 }

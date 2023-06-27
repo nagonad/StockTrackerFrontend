@@ -36,7 +36,6 @@ function App() {
         </>
       ) : (
         <>
-
           <Navbar user={user}></Navbar>
           <div className="bodyContent">
             <Sidebar></Sidebar>
@@ -48,14 +47,13 @@ function App() {
                   path="/Editproducts"
                   element={<EditProducts></EditProducts>}
                 ></Route>
-              <Route
-              path="/editprofile"
-              element={<Editprofile user={user}></Editprofile>}
-            ></Route>
+                <Route
+                  path="/editprofile"
+                  element={<Editprofile user={user}></Editprofile>}
+                ></Route>
               </Routes>
             </div>
           </div>
-
         </>
       )}
     </>
