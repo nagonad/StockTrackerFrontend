@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import loginimage from "../images/loginimage.png";
 import Typography from "@mui/material/Typography";
-import logo from "../images/logo.svg";
+import logo from "../images/logo_removebg.png";
 import { Button } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 
