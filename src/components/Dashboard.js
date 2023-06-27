@@ -245,25 +245,33 @@ function Row({ item }) {
           }}
           colSpan={7}
         >
-          <Collapse in={open} timeout="auto" unmountOnExit>
-            <Box sx={{ margin: 1 }}>
-              <Table size="small" aria-label="purchases">
-                <TableBody>
-                  <TableRow>
-                    <TableCell component="th" scope="row">
-                      dummy
-                    </TableCell>
-                    <TableCell>dummy</TableCell>
-                    <TableCell align="right">dummy</TableCell>
-                    <TableCell align="right">100</TableCell>
-                    <TableCell align="right">100</TableCell>
-                    <TableCell align="right">100</TableCell>
-                    <TableCell align="right">100</TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
-            </Box>
-          </Collapse>
+         <Collapse in={open} timeout="auto" unmountOnExit>
+    <Box sx={{ margin: 1 }}>
+        <Table size="small" aria-label="variants">
+            <TableHead>
+                <TableRow>
+                    <TableCell>Color</TableCell>
+                    <TableCell>Size</TableCell>
+                    <TableCell align="right">Quantity</TableCell>
+                    <TableCell align="right">Price</TableCell>
+                </TableRow>
+            </TableHead>
+            <TableBody>
+                {item.variants && item.variants.map((variant) => (
+                    <TableRow key={variant.color + variant.size}>
+                        <TableCell component="th" scope="row">
+                            {variant.color}
+                        </TableCell>
+                        <TableCell>{variant.size}</TableCell>
+                        <TableCell align="right">{variant.quantity}</TableCell>
+                        <TableCell align="right">{variant.price}</TableCell>
+                    </TableRow>
+                ))}
+            </TableBody>
+        </Table>
+    </Box>
+</Collapse>
+
         </TableCell>
       </TableRow>
     </React.Fragment>
