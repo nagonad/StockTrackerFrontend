@@ -20,10 +20,11 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import SearchIcon from "@mui/icons-material/Search";
 import IconButton from "@mui/material/IconButton";
 import Collapse from "@mui/material/Collapse";
-import {
-  Euro as EuroIcon,
-  ShoppingCart as ShoppingCartIcon,
-} from "@material-ui/icons";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import EuroSymbolIcon from "@mui/icons-material/EuroSymbol";
+import ListAltIcon from "@mui/icons-material/ListAlt";
+import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
+
 import PaginationDashboard from "./PaginationDashboard";
 
 export default function Dashboard() {
@@ -74,42 +75,48 @@ export default function Dashboard() {
   return (
     <Box m={3}>
       <Box display="flex" justifyContent="space-between" mb={2}>
-        <Button
-          variant="outlined"
-          color="secondary"
-          startIcon={<ShoppingCartIcon />}
-          style={{ marginRight: 10, padding: "20px 30px" }}
-          size="large"
+        <Box
+          className="dashboardTopContainer"
+          sx={{ backgroundColor: "#A908AC", color: "white" }}
         >
-          <Typography variant="h6">
+          <ShoppingCartIcon
+            fontSize="large"
+            sx={{ marginRight: "1rem" }}
+          ></ShoppingCartIcon>
+          <Typography variant="h5">
             Total Products: {stockInfo.length}
           </Typography>
-        </Button>
-        <Button
-          variant="outlined"
-          color="secondary"
-          startIcon={<EuroIcon />}
-          style={{ marginRight: 10, padding: "20px 30px" }}
-          size="large"
+        </Box>
+        <Box
+          className="dashboardTopContainer"
+          sx={{ backgroundColor: "#24A005", color: "white" }}
         >
-          <Typography variant="h6">Total Value: {totalValue}</Typography>
-        </Button>
-        <Button
-          variant="outlined"
-          color="secondary"
-          style={{ marginRight: 10, padding: "20px 30px" }}
-          size="large"
+          <EuroSymbolIcon
+            fontSize="large"
+            sx={{ marginRight: "1rem" }}
+          ></EuroSymbolIcon>
+          <Typography variant="h5">Total Value: {totalValue}</Typography>
+        </Box>
+        <Box
+          className="dashboardTopContainer"
+          sx={{ backgroundColor: "#D10000", color: "white" }}
         >
-          <Typography variant="h6">Out of Stock: {outOfStockCount}</Typography>
-        </Button>
-        <Button
-          variant="outlined"
-          color="secondary"
-          style={{ marginRight: 10, padding: "20px 30px" }}
-          size="large"
+          <RemoveShoppingCartIcon
+            fontSize="large"
+            sx={{ marginRight: "1rem" }}
+          ></RemoveShoppingCartIcon>
+          <Typography variant="h5">Out of Stock: {outOfStockCount}</Typography>
+        </Box>
+        <Box
+          className="dashboardTopContainer"
+          sx={{ backgroundColor: "#2982EA", color: "white" }}
         >
-          <Typography variant="h6">Categories: {categories}</Typography>
-        </Button>
+          <ListAltIcon
+            fontSize="large"
+            sx={{ marginRight: "1rem" }}
+          ></ListAltIcon>
+          <Typography variant="h5">Categories: {categories}</Typography>
+        </Box>
       </Box>
       <Divider sx={{ marginBottom: "1rem" }}></Divider>
       <div style={{ display: "flex", width: "100%", justifyContent: "center" }}>
