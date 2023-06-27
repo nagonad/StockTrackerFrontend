@@ -36,7 +36,7 @@ function App() {
         </>
       ) : (
         <>
-          <Navbar user={user}></Navbar>
+          <Navbar user={user} setUser={setUser}></Navbar>
           <div className="bodyContent">
             <Sidebar></Sidebar>
             <div id="bodyContentRight">
