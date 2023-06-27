@@ -28,9 +28,15 @@ import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
 import PaginationDashboard from "./PaginationDashboard";
 
 export default function Dashboard() {
+  const [resetCollapse, setResetCollapse] = useState(false);
   const [stockInfo, setStockInfo] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [isFocused, setIsFocused] = useState(false);
+
+  const closeDropdowns = () => {
+    console.log(resetCollapse);
+    setResetCollapse((prev) => !prev);
+  };
 
   const handleFocus = () => setIsFocused(true);
 
@@ -178,13 +184,14 @@ export default function Dashboard() {
             {filteredStockInfo
               .slice(page * rowsPerPage, (page + 1) * rowsPerPage)
               .map((item) => (
-                <Row item={item}></Row>
+                <Row item={item} resetCollapse={resetCollapse}></Row>
               ))}
           </TableBody>
         </Table>
       </TableContainer>
 
       <PaginationDashboard
+        closeDropdowns={closeDropdowns}
         page={page}
         setPage={setPage}
         totalPages={totalPages}
@@ -193,9 +200,13 @@ export default function Dashboard() {
   );
 }
 
-function Row({ item }) {
+function Row({ item, resetCollapse }) {
   const { row } = item;
   const [open, setOpen] = React.useState(false);
+
+  useEffect(() => {
+    setOpen(false);
+  }, [resetCollapse]);
 
   return (
     <React.Fragment>
@@ -252,33 +263,33 @@ function Row({ item }) {
           }}
           colSpan={7}
         >
-         <Collapse in={open} timeout="auto" unmountOnExit>
-    <Box sx={{ margin: 1 }}>
-        <Table size="small" aria-label="variants">
-            <TableHead>
-                <TableRow>
+          <Collapse in={open} timeout="auto" unmountOnExit>
+            <Box sx={{ margin: 1 }}>
+              <Table size="small" aria-label="variants">
+                <TableHead>
+                  <TableRow>
                     <TableCell>Color</TableCell>
                     <TableCell>Size</TableCell>
                     <TableCell align="right">Quantity</TableCell>
                     <TableCell align="right">Price</TableCell>
-                </TableRow>
-            </TableHead>
-            <TableBody>
-                {item.variants && item.variants.map((variant) => (
-                    <TableRow key={variant.color + variant.size}>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {item.variants &&
+                    item.variants.map((variant) => (
+                      <TableRow key={variant.color + variant.size}>
                         <TableCell component="th" scope="row">
-                            {variant.color}
+                          {variant.color}
                         </TableCell>
                         <TableCell>{variant.size}</TableCell>
                         <TableCell align="right">{variant.quantity}</TableCell>
                         <TableCell align="right">{variant.price}</TableCell>
-                    </TableRow>
-                ))}
-            </TableBody>
-        </Table>
-    </Box>
-</Collapse>
-
+                      </TableRow>
+                    ))}
+                </TableBody>
+              </Table>
+            </Box>
+          </Collapse>
         </TableCell>
       </TableRow>
     </React.Fragment>

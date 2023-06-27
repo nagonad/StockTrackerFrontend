@@ -9,6 +9,7 @@ import EditProducts from "./components/EditProducts";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Editprofile from "./components/Editprofile";
+import { Navigate } from "react-router-dom";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -32,6 +33,7 @@ function App() {
               path="/signup"
               element={<Signup setUser={setUser}></Signup>}
             ></Route>
+            <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </>
       ) : (
@@ -51,6 +53,7 @@ function App() {
                   path="/editprofile"
                   element={<Editprofile user={user}></Editprofile>}
                 ></Route>
+                <Route path="*" element={<Navigate to="/" />} />
               </Routes>
             </div>
           </div>
