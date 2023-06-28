@@ -15,6 +15,7 @@ import Tooltip from "@mui/material/Tooltip";
 // import Settings from '@mui/icons-material/Settings';
 import Logout from "@mui/icons-material/Logout";
 
+
 export default function Navbar({ user, setUser }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -127,6 +128,7 @@ export default function Navbar({ user, setUser }) {
           </Menu>
         </div>
       </Box>
+
     </div>
   );
 }

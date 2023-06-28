@@ -2,8 +2,11 @@ import { useState } from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import { useNavigate } from "react-router-dom";
+import { Create } from "@material-ui/icons";
+import CreateUser from "./CreateUser";
 
-export default function Editprofile({ user }) {
+
+export default function Editprofile({ setUser ,user }) {
   const [currentpassword, setCurrentpassword] = useState("");
   const [newpassword, setNewpassword] = useState("");
   const [error, setError] = useState(null);
@@ -86,7 +89,11 @@ export default function Editprofile({ user }) {
           </TabPanel>
           {error && <div className="error">{error}</div>}
         </div>
-        <TabPanel></TabPanel>
+
+        
+        <TabPanel>
+      <CreateUser setUser={setUser}/>
+        </TabPanel>
       </Tabs>
     </div>
   );
