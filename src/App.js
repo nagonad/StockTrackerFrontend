@@ -9,6 +9,7 @@ import EditProducts from "./components/EditProducts";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Editprofile from "./components/Editprofile";
+import { Navigate } from "react-router-dom";
 
 
 function App() {
@@ -33,24 +34,32 @@ function App() {
               path="/signup"
               element={<Signup setUser={setUser}></Signup>}
             ></Route>
+            <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </>
       ) : (
         <>
-          <Navbar user={user.username}></Navbar>
-          <Sidebar></Sidebar>
-          <Routes>
-            <Route path="/" element={<Dashboard></Dashboard>}></Route>
-            <Route path="/users" element={<User></User>}></Route>
-            <Route
-              path="/Editproducts"
-              element={<EditProducts></EditProducts>}
-            ></Route>
-            <Route
-              path="/editprofile"
-              element={<Editprofile setUser={setUser} user={user}></Editprofile>}
-            ></Route>
-          </Routes>
+
+          <Navbar user={user} setUser={setUser}></Navbar>
+          <div className="bodyContent">
+            <Sidebar></Sidebar>
+            <div id="bodyContentRight">
+              <Routes>
+                <Route path="/" element={<Dashboard></Dashboard>}></Route>
+                <Route path="/users" element={<User></User>}></Route>
+                <Route
+                  path="/Editproducts"
+                  element={<EditProducts></EditProducts>}
+                ></Route>
+                <Route
+                  path="/editprofile"
+                  element={<Editprofile user={user}></Editprofile>}
+                ></Route>
+                <Route path="*" element={<Navigate to="/" />} />
+              </Routes>
+            </div>
+          </div>
+
         </>
       )}
     </>
