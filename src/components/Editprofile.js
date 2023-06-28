@@ -19,14 +19,17 @@ export default function Editprofile({ user }) {
     setIsLoading(true);
     setError(null);
     console.log(userId, currentpassword, newpassword);
-    const response = await fetch("http://localhost:8080/user/updatepassword", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        // "Authorization": `Bearer ${user.token}`
-      },
-      body: JSON.stringify({ userId, currentpassword, newpassword }),
-    });
+    const response = await fetch(
+      "https://stocktrackerbackend.onrender.com/user/updatepassword",
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          // "Authorization": `Bearer ${user.token}`
+        },
+        body: JSON.stringify({ userId, currentpassword, newpassword }),
+      }
+    );
 
     const data = await response.json();
     if (!response.ok) {
