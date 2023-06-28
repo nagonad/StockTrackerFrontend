@@ -10,6 +10,7 @@ import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Editprofile from "./components/Editprofile";
 
+
 function App() {
   const [user, setUser] = useState(null);
 
@@ -36,7 +37,7 @@ function App() {
         </>
       ) : (
         <>
-          <Navbar></Navbar>
+          <Navbar user={user.username}></Navbar>
           <Sidebar></Sidebar>
           <Routes>
             <Route path="/" element={<Dashboard></Dashboard>}></Route>
@@ -47,7 +48,7 @@ function App() {
             ></Route>
             <Route
               path="/editprofile"
-              element={<Editprofile user={user}></Editprofile>}
+              element={<Editprofile setUser={setUser} user={user}></Editprofile>}
             ></Route>
           </Routes>
         </>

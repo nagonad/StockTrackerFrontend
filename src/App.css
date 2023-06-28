@@ -177,6 +177,7 @@ input {
 
 .Editprofile {
   margin-top: 9vh;
+  
 }
 
 .tabs {
@@ -184,7 +185,6 @@ input {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 80vh;
 }
 
 .tab-panel {
@@ -226,6 +226,85 @@ input {
   font-weight: bold;
 }
 
-.error {
-  margin-button: 50px;
+
+
+
+body {
+  font-family: sans-serif;
 }
+
+:root {
+  --primary: #1aac83;
+  --error: #e7195a;
+}
+
+.posts {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.title a {
+  text-decoration: none;
+  font-size: 1.5em;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.container nav {
+  display: flex;
+  font-size: 1.5em;
+}
+
+nav a {
+  margin-left: 10px;
+  text-decoration: none;
+}
+
+label,
+input {
+  display: block;
+}
+input {
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+form button {
+  background: var(--primary);
+  border: 0;
+  color: #fff;
+  padding: 10px;
+  font-family: sans-serif;
+  border-radius: 4px;
+  cursor: pointer;
+}
+div.error {
+  padding: 10px;
+  background: #ffefef;
+  border: 1px solid var(--error);
+  color: var(--error);
+  border-radius: 4px;
+  margin: 20px 0;
+}
+
+input.error {
+  border: 1px solid var(--error);
+}
+
+form.signup,
+form.login {
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 4px;
+}
+
