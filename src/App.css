@@ -211,9 +211,7 @@ input {
 }
 
 .Editprofile {
-
   /* margin-top: 9vh; */
-
 }
 
 .tabs {
@@ -221,7 +219,6 @@ input {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
 }
 
 .tabsHeader {
@@ -233,7 +230,6 @@ input {
   margin-left: 20px;
   height: 50px;
   border-bottom: 2px dashed #9ca3af;
-
 }
 
 .tab-panel {
@@ -274,7 +270,6 @@ input {
 .label {
   font-weight: bold;
 }
-
 
 body {
   font-family: sans-serif;
@@ -353,6 +348,7 @@ form.login {
   padding: 20px;
   background: #fff;
   border-radius: 4px;
+}
 
 .error {
   margin-bottom: 50px;
@@ -371,6 +367,4 @@ form.login {
   justify-content: center;
   margin: 0 1rem;
   border-radius: 10px;
-
 }
-
