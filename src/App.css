@@ -209,11 +209,23 @@ input {
   margin-top: 80px;
   width: 100%;
 }
-
+/* EditProfile */
 .Editprofile {
-  /* margin-top: 9vh; */
+  /* margin-top: 9vh */
+
+}
+.user-info{
+  padding: 10px;
+  width: 500px;
 }
 
+.editform{
+  margin-left: 10px;
+}
+
+.editsubmit{
+  width: 150px;
+}
 .tabs {
   display: flex;
   flex-direction: column;
@@ -226,7 +238,7 @@ input {
 }
 
 .tablist {
-  background-color: white;
+  background-color:whitesmoke;
   margin-left: 20px;
   height: 50px;
   border-bottom: 2px dashed #9ca3af;
@@ -241,14 +253,16 @@ input {
 }
 
 .tab-panel span {
-  font-weight: bold;
+  font-weight:bold;
 }
 
 .tab-panel input[type="password"],
 .tab-panel input[type="submit"] {
-  margin-top: 10px;
+  margin-top: 2px;
   padding: 8px;
   border: 1px solid #ccc;
+  background: #ece39d;
+
 }
 
 .tab-panel input[type="submit"] {
@@ -265,6 +279,8 @@ input {
 .value {
   padding: 8px;
   border: 1px solid #ccc;
+  background:#ece39d ;
+  
 }
 
 .label {

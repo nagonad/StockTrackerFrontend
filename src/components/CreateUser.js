@@ -58,7 +58,7 @@ export default function CreateUser({ setUser }) {
         value={password}
       />
 
-      <button type="submit">Create</button>  // Added type="submit" to the button
+      <button type="submit">Create</button> 
       {error && <div className="error">{error}</div>}
     </form>
   );
