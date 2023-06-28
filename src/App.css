@@ -211,7 +211,7 @@ input {
 }
 
 .Editprofile {
-  margin-top: 9vh;
+  /* margin-top: 9vh; */
 }
 
 .tabs {
@@ -219,7 +219,17 @@ input {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 80vh;
+}
+
+.tabsHeader {
+  border: 1px dashed darkslategray;
+}
+
+.tablist {
+  background-color: white;
+  margin-left: 20px;
+  height: 50px;
+  border-bottom: 2px dashed #9ca3af;
 }
 
 .tab-panel {
@@ -266,7 +276,8 @@ input {
 }
 
 .tableCell {
-  padding: 6px !important;
+  padding-top: 6px !important;
+  padding-bottom: 6px !important;
 }
 
 .dashboardTopContainer {

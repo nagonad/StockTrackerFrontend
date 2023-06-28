@@ -163,19 +163,15 @@ export default function Dashboard() {
               <TableCell sx={{ fontWeight: "600" }} align="center">
                 Image
               </TableCell>
-              <TableCell sx={{ fontWeight: "600" }} align="left">
-                Name
-              </TableCell>
-              <TableCell sx={{ fontWeight: "600" }} align="center">
-                Category
-              </TableCell>
-              <TableCell sx={{ fontWeight: "600" }} align="center">
+              <TableCell sx={{ fontWeight: "600" }}>Name</TableCell>
+              <TableCell sx={{ fontWeight: "600" }}>Category</TableCell>
+              <TableCell sx={{ fontWeight: "600" }} align="right">
                 Quantity
               </TableCell>
-              <TableCell sx={{ fontWeight: "600" }} align="center">
+              <TableCell sx={{ fontWeight: "600" }} align="right">
                 Price
               </TableCell>
-              <TableCell sx={{ fontWeight: "600" }} align="center">
+              <TableCell sx={{ fontWeight: "600" }} align="right">
                 Total Price
               </TableCell>
             </TableRow>
@@ -240,16 +236,14 @@ function Row({ item, resetCollapse }) {
         </TableCell>
         <TableCell className="tableCell">{item.name}</TableCell>
 
-        <TableCell className="tableCell" align="center">
-          {item.category}
-        </TableCell>
-        <TableCell className="tableCell" align="center">
+        <TableCell className="tableCell">{item.category}</TableCell>
+        <TableCell className="tableCell" align="right">
           {item.quantity}
         </TableCell>
-        <TableCell className="tableCell" align="center">
+        <TableCell className="tableCell" align="right">
           {item.price}
         </TableCell>
-        <TableCell className="tableCell" align="center">
+        <TableCell className="tableCell" align="right">
           {item.totalPrice}
         </TableCell>
       </TableRow>

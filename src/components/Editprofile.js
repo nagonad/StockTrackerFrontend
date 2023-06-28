@@ -42,10 +42,17 @@ export default function Editprofile({ user }) {
 
   return (
     <div className="Editprofile">
-      <Tabs>
-        <TabList>
-          <Tab>Edit profile</Tab>
-          <Tab>Create new user</Tab>
+      <Tabs className="tabsHeader">
+        <TabList className="tablist">
+          <Tab
+            style={{
+              height: "100%",
+              marginLeft: "1rem",
+            }}
+          >
+            Edit profile
+          </Tab>
+          <Tab style={{ height: "100%" }}>Create new user</Tab>
         </TabList>
         <div className="tabs">
           <TabPanel className="tab-panel">
