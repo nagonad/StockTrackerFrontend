@@ -70,24 +70,24 @@ export default function Editprofile({ setUser ,user }) {
               <label className="label">Email</label>
               <div className="value">{user.userEmail}</div>
             </div>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="editform">
               <label className="label">Change password</label>
               <input
                 onChange={(e) => setCurrentpassword(e.target.value)}
                 placeholder="Current password"
                 type="password"
                 name="password"
-                value={currentpassword}
+                value={currentpassword} className="editinput"
               />
               <input
                 onChange={(e) => setNewpassword(e.target.value)}
                 placeholder="New password"
                 type="password"
                 name="password"
-                value={newpassword}
+                value={newpassword} className="editinput"
               />
 
-              <input type="submit" value="Submit" />
+              <input type="submit" value="Submit" className="editsubmit" />
             </form>
           </TabPanel>
           {error && <div className="error">{error}</div>}
