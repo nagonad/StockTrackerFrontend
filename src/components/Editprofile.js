@@ -5,8 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Create } from "@material-ui/icons";
 import CreateUser from "./CreateUser";
 
-
-export default function Editprofile({ setUser ,user }) {
+export default function Editprofile({ setUser, user }) {
   const [currentpassword, setCurrentpassword] = useState("");
   const [newpassword, setNewpassword] = useState("");
   const [error, setError] = useState(null);
@@ -52,8 +51,8 @@ export default function Editprofile({ setUser ,user }) {
         <TabList className="tablist">
           <Tab
             style={{
-              height: "100%",
               marginLeft: "1rem",
+              height: "100%",
             }}
           >
             Edit profile
@@ -70,7 +69,7 @@ export default function Editprofile({ setUser ,user }) {
               <label className="label">Email</label>
               <div className="value">{user.userEmail}</div>
             </div>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="editform">
               <label className="label">Change password</label>
               <input
                 onChange={(e) => setCurrentpassword(e.target.value)}
@@ -78,6 +77,7 @@ export default function Editprofile({ setUser ,user }) {
                 type="password"
                 name="password"
                 value={currentpassword}
+                className="editinput"
               />
               <input
                 onChange={(e) => setNewpassword(e.target.value)}
@@ -85,17 +85,17 @@ export default function Editprofile({ setUser ,user }) {
                 type="password"
                 name="password"
                 value={newpassword}
+                className="editinput"
               />
 
-              <input type="submit" value="Submit" />
+              <input type="submit" value="Submit" className="editsubmit" />
             </form>
           </TabPanel>
           {error && <div className="error">{error}</div>}
         </div>
 
-        
         <TabPanel>
-      <CreateUser setUser={setUser}/>
+          <CreateUser setUser={setUser} />
         </TabPanel>
       </Tabs>
     </div>

@@ -13,7 +13,6 @@ import Signup from "./components/Signup";
 import Editprofile from "./components/Editprofile";
 import { Navigate } from "react-router-dom";
 
-
 function App() {
   const [user, setUser] = useState(null);
 
@@ -41,7 +40,6 @@ function App() {
         </>
       ) : (
         <>
-
           <Navbar user={user} setUser={setUser}></Navbar>
           <div className="bodyContent">
             <Sidebar></Sidebar>
@@ -62,7 +60,6 @@ function App() {
               </Routes>
             </div>
           </div>
-
         </>
       )}
     </>
