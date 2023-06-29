@@ -9,8 +9,9 @@ import EditProducts from "./components/EditProducts";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Editprofile from "./components/Editprofile";
+import ForgotPassword from "./components/ForgotPassword";
+import ResetPassword from "./components/ResetPassword";
 import { Navigate } from "react-router-dom";
-
 
 function App() {
   const [user, setUser] = useState(null);
@@ -35,11 +36,18 @@ function App() {
               element={<Signup setUser={setUser}></Signup>}
             ></Route>
             <Route path="*" element={<Navigate to="/" />} />
+            <Route
+              path="forgotpassword"
+              element={<ForgotPassword></ForgotPassword>}
+            ></Route>
+            <Route
+              path="resetpassword/:resetToken"
+              element={<ResetPassword></ResetPassword>}
+            ></Route>
           </Routes>
         </>
       ) : (
         <>
-
           <Navbar user={user} setUser={setUser}></Navbar>
           <div className="bodyContent">
             <Sidebar></Sidebar>
@@ -59,7 +67,6 @@ function App() {
               </Routes>
             </div>
           </div>
-
         </>
       )}
     </>
