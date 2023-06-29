@@ -22,7 +22,7 @@ function ProductDetailPage() {
     async function fetchProduct() {
       if (id) {
         try {
-          const response = await axios.get(`http://localhost:8080/stockInfo/product/${id}`);
+          const response = await axios.get(`https://stocktrackerbackend.onrender.com/stockInfo/product/${id}`);
           setProduct(response.data);
 
           const variant = response.data.variants.find(

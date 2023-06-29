@@ -25,7 +25,6 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import EuroSymbolIcon from "@mui/icons-material/EuroSymbol";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
-
 import PaginationDashboard from "./PaginationDashboard";
 
 export default function Dashboard() {
