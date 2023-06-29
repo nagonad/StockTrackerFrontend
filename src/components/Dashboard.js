@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -202,9 +203,13 @@ function Row({ item, resetCollapse }) {
   const { row } = item;
   const [open, setOpen] = React.useState(false);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     setOpen(false);
   }, [resetCollapse]);
+
+
 
   return (
     <React.Fragment>
@@ -262,18 +267,15 @@ function Row({ item, resetCollapse }) {
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
               <Table size="small" aria-label="variants">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Color</TableCell>
-                    <TableCell>Size</TableCell>
-                    <TableCell align="right">Quantity</TableCell>
-                    <TableCell align="right">Price</TableCell>
-                  </TableRow>
-                </TableHead>
+                {/* ... */}
                 <TableBody>
                   {item.variants &&
                     item.variants.map((variant) => (
-                      <TableRow key={variant.color + variant.size}>
+                      <TableRow
+                        key={variant.color + variant.size}
+                        onClick={() => navigate(`/product/${item._id}/${variant.color}/${variant.size}`)}
+                        style={{ cursor: 'pointer' }}
+                      >
                         <TableCell component="th" scope="row">
                           {variant.color}
                         </TableCell>
