@@ -21,10 +21,11 @@ import SearchIcon from "@mui/icons-material/Search";
 import IconButton from "@mui/material/IconButton";
 import Collapse from "@mui/material/Collapse";
 
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import { BiEdit } from "react-icons/bi";
 import { RiDeleteBin6Fill } from "react-icons/ri";
-
 import PaginationDashboard from "./PaginationDashboard";
+import CreateProduct from "./CreateProduct";
 
 export default function EditProducts() {
   const [resetCollapse, setResetCollapse] = useState(false);
@@ -70,79 +71,104 @@ export default function EditProducts() {
   }, []);
   return (
     <>
-      <Box m={3}>
-        <div
-          style={{ display: "flex", width: "100%", justifyContent: "center" }}
-        >
-          <TextField
-            label={
-              isFocused ? (
-                ""
-              ) : (
-                <div
-                  style={{
-                    display: "flex",
-                    color: "#1976D2",
-                  }}
-                >
-                  <SearchIcon sx={{ marginRight: "0.5rem" }}></SearchIcon>
-                  <Typography>Search</Typography>
-                </div>
-              )
-            }
-            variant="outlined"
-            value={searchTerm}
-            onFocus={handleFocus}
-            onBlur={handleBlur}
-            onChange={(event) => setSearchTerm(event.target.value)}
-            sx={{ marginBottom: "1rem", maxWidth: "400px", width: "100%" }}
-          />
-        </div>
-
-        <TableContainer component={Paper}>
-          <Table
-            sx={{
-              borderCollapse: "separate",
+      <Tabs className="tabsHeader">
+        <TabList className="tablist">
+          <Tab
+            style={{
+              marginLeft: "1rem",
+              height: "100%",
             }}
           >
-            <TableHead sx={{ backgroundColor: "#F3F4F6" }}>
-              <TableRow>
-                <TableCell></TableCell>
-                <TableCell sx={{ fontWeight: "600" }} align="center">
-                  Image
-                </TableCell>
-                <TableCell sx={{ fontWeight: "600" }}>Name</TableCell>
-                <TableCell sx={{ fontWeight: "600" }}>Category</TableCell>
-                <TableCell sx={{ fontWeight: "600" }} align="right">
-                  Quantity
-                </TableCell>
-                <TableCell sx={{ fontWeight: "600" }} align="right">
-                  Price
-                </TableCell>
-                <TableCell sx={{ fontWeight: "600" }} align="right">
-                  Total Price
-                </TableCell>
-                <TableCell align="right">#</TableCell>
-                <TableCell align="right">#</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {filteredStockInfo
-                .slice(page * rowsPerPage, (page + 1) * rowsPerPage)
-                .map((item) => (
-                  <Row item={item} resetCollapse={resetCollapse}></Row>
-                ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+            Edit Products
+          </Tab>
+          <Tab style={{ height: "100%" }}>Create new Product</Tab>
+        </TabList>
+        <TabPanel className="tab-panel">
+          <Box m={3}>
+            <div
+              style={{
+                display: "flex",
+                width: "100%",
+                justifyContent: "center",
+              }}
+            >
+              <TextField
+                label={
+                  isFocused ? (
+                    ""
+                  ) : (
+                    <div
+                      style={{
+                        display: "flex",
+                        color: "#1976D2",
+                      }}
+                    >
+                      <SearchIcon sx={{ marginRight: "0.5rem" }}></SearchIcon>
+                      <Typography>Search</Typography>
+                    </div>
+                  )
+                }
+                variant="outlined"
+                value={searchTerm}
+                onFocus={handleFocus}
+                onBlur={handleBlur}
+                onChange={(event) => setSearchTerm(event.target.value)}
+                sx={{
+                  marginBottom: "1rem",
+                  maxWidth: "400px",
+                  width: "100%",
+                }}
+              />
+            </div>
+            <TableContainer component={Paper}>
+              <Table
+                sx={{
+                  borderCollapse: "separate",
+                }}
+              >
+                <TableHead sx={{ backgroundColor: "#F3F4F6" }}>
+                  <TableRow>
+                    <TableCell></TableCell>
+                    <TableCell sx={{ fontWeight: "600" }} align="center">
+                      Image
+                    </TableCell>
+                    <TableCell sx={{ fontWeight: "600" }}>Name</TableCell>
+                    <TableCell sx={{ fontWeight: "600" }}>Category</TableCell>
+                    <TableCell sx={{ fontWeight: "600" }} align="right">
+                      Quantity
+                    </TableCell>
+                    <TableCell sx={{ fontWeight: "600" }} align="right">
+                      Price
+                    </TableCell>
+                    <TableCell sx={{ fontWeight: "600" }} align="right">
+                      Total Price
+                    </TableCell>
+                    <TableCell align="right">#</TableCell>
+                    <TableCell align="right">#</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {filteredStockInfo
+                    .slice(page * rowsPerPage, (page + 1) * rowsPerPage)
+                    .map((item) => (
+                      <Row item={item} resetCollapse={resetCollapse}></Row>
+                    ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
 
-        <PaginationDashboard
-          closeDropdowns={closeDropdowns}
-          page={page}
-          setPage={setPage}
-          totalPages={totalPages}
-        />
-      </Box>
+            <PaginationDashboard
+              closeDropdowns={closeDropdowns}
+              page={page}
+              setPage={setPage}
+              totalPages={totalPages}
+            />
+          </Box>
+        </TabPanel>
+        <TabPanel>
+          <CreateProduct />
+        </TabPanel>
+      </Tabs>
     </>
   );
 }
@@ -150,8 +176,8 @@ export default function EditProducts() {
 function Row({ item, resetCollapse }) {
   const { row } = item;
   const [open, setOpen] = React.useState(false);
-
-  useEffect(() => {
+  //localhost:3000/editprofile
+  http: useEffect(() => {
     setOpen(false);
   }, [resetCollapse]);
 
