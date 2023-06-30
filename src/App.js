@@ -1,14 +1,18 @@
 import "./App.css";
 import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
+
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import Dashboard from "./components/Dashboard";
+import ProductDetailPage from "./components/ProductDetailPage";
 import User from "./components/User";
 import EditProducts from "./components/EditProducts";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Editprofile from "./components/Editprofile";
+import ForgotPassword from "./components/ForgotPassword";
+import ResetPassword from "./components/ResetPassword";
 import { Navigate } from "react-router-dom";
 
 function App() {
@@ -34,6 +38,14 @@ function App() {
               element={<Signup setUser={setUser}></Signup>}
             ></Route>
             <Route path="*" element={<Navigate to="/" />} />
+            <Route
+              path="forgotpassword"
+              element={<ForgotPassword></ForgotPassword>}
+            ></Route>
+            <Route
+              path="resetpassword/:resetToken"
+              element={<ResetPassword></ResetPassword>}
+            ></Route>
           </Routes>
         </>
       ) : (
@@ -44,6 +56,7 @@ function App() {
             <div id="bodyContentRight">
               <Routes>
                 <Route path="/" element={<Dashboard></Dashboard>}></Route>
+                <Route path="/product/:id/:color/:size" element={<ProductDetailPage></ProductDetailPage>}></Route>
                 <Route path="/users" element={<User></User>}></Route>
                 <Route
                   path="/Editproducts"

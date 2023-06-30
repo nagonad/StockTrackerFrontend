@@ -9,38 +9,49 @@ export default function Login({ user, setUser }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
+    setIsLoading(true);
 
-    const response = await fetch(
-      "https://stocktrackerbackend.onrender.com/user/login",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
+    try {
+      const response = await fetch(
+        "https://stocktrackerbackend.onrender.com/user/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.error);
+      } else {
+        setUser(data);
+        localStorage.setItem("user", JSON.stringify(data));
+        navigate("/");
       }
-    );
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      setError(data.error);
+    } catch (error) {
+      setError("An error occurred. Please try again.");
     }
 
-    if (response.ok) {
-      setUser(data);
-      localStorage.setItem("user", JSON.stringify(data));
-      navigate("/");
-    }
+    setIsLoading(false);
   };
 
   return (
     <div className="logincontainer">
+      {isLoading && (
+        <div className="loading-overlay">
+          <div className="spinner"></div>
+        </div>
+      )}
       <div className="loginleftcontainer">
         <div className="loginleftinnercontainer">
           <img src={loginimage} alt="" />
@@ -90,7 +101,7 @@ export default function Login({ user, setUser }) {
             <Typography
               sx={{ fontFamily: "Nunito", fontSize: "16px", color: "#525252" }}
             >
-              See what is going on with your bussiness
+              See what is going on with your business
             </Typography>
           </div>
 
@@ -120,11 +131,14 @@ export default function Login({ user, setUser }) {
                     label="Remember Me"
                   />
                 </FormGroup>
-                <Typography sx={{ color: "#1976d2" }}>
-                  Forgot Password?
-                </Typography>
+                <Link to="forgotpassword" style={{ textDecoration: "none" }}>
+                  <Typography sx={{ color: "#1976d2" }}>
+                    Forgot Password?
+                  </Typography>
+                </Link>
               </div>
             </div>
+
             {error && <div className="error">{error}</div>}
             <Button
               type="submit"
