@@ -235,10 +235,8 @@ input {
   background-color: whitesmoke;
   margin-left: 20px;
   height: 50px;
-  border-bottom: 2px dashed #9ca3af;
+  border-bottom: 1px dashed #9ca3af;
   background-color: white;
-  position: relative;
-  z-index: 1001;
 }
 
 .tab-panel {
@@ -380,6 +378,21 @@ form.login {
   border-radius: 10px;
 }
 
+
+.createProductBox {
+  background-color: white;
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 4px;
+}
+
+.createProductlistElement {
+  display: flex;
+}
+
+.createProductlistElement :hover {
+  background-color: #e7ebf0;
+
 .ContainerForm {
   display: flex;
   justify-content: center;
@@ -467,4 +480,5 @@ form.login {
   100% {
     transform: rotate(360deg);
   }
+
 }
