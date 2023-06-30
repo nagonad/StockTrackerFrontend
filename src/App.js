@@ -11,6 +11,8 @@ import EditProducts from "./components/EditProducts";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Editprofile from "./components/Editprofile";
+import ForgotPassword from "./components/ForgotPassword";
+import ResetPassword from "./components/ResetPassword";
 import { Navigate } from "react-router-dom";
 
 function App() {
@@ -36,6 +38,14 @@ function App() {
               element={<Signup setUser={setUser}></Signup>}
             ></Route>
             <Route path="*" element={<Navigate to="/" />} />
+            <Route
+              path="forgotpassword"
+              element={<ForgotPassword></ForgotPassword>}
+            ></Route>
+            <Route
+              path="resetpassword/:resetToken"
+              element={<ResetPassword></ResetPassword>}
+            ></Route>
           </Routes>
         </>
       ) : (
