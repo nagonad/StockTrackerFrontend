@@ -209,7 +209,6 @@ input {
   margin-top: 80px;
   width: 100%;
 }
-/* EditProfile */
 .Editprofile {
   /* margin-top: 9vh */
 }
@@ -232,15 +231,14 @@ input {
   justify-content: center;
 }
 
-.tabsHeader {
-  border: 1px dashed darkslategray;
-}
-
 .tablist {
   background-color: whitesmoke;
   margin-left: 20px;
   height: 50px;
   border-bottom: 2px dashed #9ca3af;
+  background-color: white;
+  position: relative;
+  z-index: 1001;
 }
 
 .tab-panel {
