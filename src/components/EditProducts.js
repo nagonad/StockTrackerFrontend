@@ -83,13 +83,14 @@ export default function EditProducts() {
           </Tab>
           <Tab style={{ height: "100%" }}>Create new Product</Tab>
         </TabList>
-        <TabPanel className="tab-panel">
-          <Box m={3}>
+        <TabPanel>
+          <Box marginX={2}>
             <div
               style={{
                 display: "flex",
                 width: "100%",
                 justifyContent: "center",
+                marginTop: "1rem",
               }}
             >
               <TextField
