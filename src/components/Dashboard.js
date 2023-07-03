@@ -34,7 +34,6 @@ export default function Dashboard({ themeMode }) {
   const [isFocused, setIsFocused] = useState(false);
 
   const closeDropdowns = () => {
-    console.log(resetCollapse);
     setResetCollapse((prev) => !prev);
   };
 
@@ -51,7 +50,6 @@ export default function Dashboard({ themeMode }) {
         const response = await axios.get(
           "https://stocktrackerbackend.onrender.com/stockinfo"
         );
-        console.log(response);
         if (!Array.isArray(response.data)) {
           console.error("Data from server is not an array:", response.data);
         } else {
@@ -326,9 +324,7 @@ function Row({ item, resetCollapse, themeMode }) {
                             `/product/${item._id}/${variant.color}/${variant.size}`
                           )
                         }
-                        style={{
-                          cursor: "pointer",
-                        }}
+                        style={{ cursor: "pointer" }}
                       >
                         <TableCell
                           style={{

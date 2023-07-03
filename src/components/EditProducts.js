@@ -24,6 +24,7 @@ import Collapse from "@mui/material/Collapse";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import { BiEdit } from "react-icons/bi";
 import { RiDeleteBin6Fill } from "react-icons/ri";
+import { RxCross1 } from "react-icons/rx";
 import PaginationDashboard from "./PaginationDashboard";
 import CreateProduct from "./CreateProduct";
 
@@ -50,25 +51,50 @@ export default function EditProducts({ themeMode }) {
   );
   const totalPages = Math.ceil(filteredStockInfo.length / rowsPerPage);
 
-  useEffect(() => {
-    const fetchStockInfo = async () => {
-      try {
-        const response = await axios.get(
-          "https://stocktrackerbackend.onrender.com/stockinfo"
-        );
-        console.log(response);
-        if (!Array.isArray(response.data)) {
-          console.error("Data from server is not an array:", response.data);
-        } else {
-          setStockInfo(response.data);
-        }
-      } catch (error) {
-        console.error("Failed to fetch stockInfo", error);
+  const fetchStockInfo = async () => {
+    try {
+      const response = await axios.get(
+        "https://stocktrackerbackend.onrender.com/stockinfo"
+      );
+      if (!Array.isArray(response.data)) {
+        console.error("Data from server is not an array:", response.data);
+      } else {
+        setStockInfo(response.data);
       }
-    };
+    } catch (error) {
+      console.error("Failed to fetch stockInfo", error);
+    }
+  };
 
+  const deleteProduct = async (id) => {
+    console.log(id);
+    try {
+      const response = await axios.delete(
+        `http://localhost:8080/stockinfo/${id}`
+      );
+      fetchStockInfo();
+      console.log(response);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  const deleteVariant = async (id, variantId) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:8080/stockinfo/variant/${id}/${variantId}`
+      );
+      fetchStockInfo();
+      console.log(response);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  useEffect(() => {
     fetchStockInfo();
   }, []);
+
   return (
     <>
       <Tabs className={`tabsHeader ${themeMode}`}>
@@ -152,7 +178,13 @@ export default function EditProducts({ themeMode }) {
                   {filteredStockInfo
                     .slice(page * rowsPerPage, (page + 1) * rowsPerPage)
                     .map((item) => (
-                      <Row item={item} resetCollapse={resetCollapse}></Row>
+                      <Row
+                        deleteVariant={deleteVariant}
+                        deleteProduct={deleteProduct}
+                        key={item._id}
+                        item={item}
+                        resetCollapse={resetCollapse}
+                      ></Row>
                     ))}
                 </TableBody>
               </Table>
@@ -174,18 +206,18 @@ export default function EditProducts({ themeMode }) {
   );
 }
 
-function Row({ item, resetCollapse }) {
+function Row({ item, resetCollapse, deleteProduct, deleteVariant }) {
   const { row } = item;
   const [open, setOpen] = React.useState(false);
-  //localhost:3000/editprofile
-  http: useEffect(() => {
+
+  useEffect(() => {
     setOpen(false);
   }, [resetCollapse]);
 
   return (
     <React.Fragment>
       <TableRow
-        key={item.id}
+        key={item._id}
         sx={{
           "& > *": { borderBottom: "unset" },
           backgroundColor: open ? "#E5E7EB" : "inherit",
@@ -232,6 +264,7 @@ function Row({ item, resetCollapse }) {
         <TableCell className="tableCell" align="right">
           <IconButton>
             <RiDeleteBin6Fill
+              onClick={() => deleteProduct(item._id)}
               style={{ color: "#EB3223", fontSize: "30px" }}
             ></RiDeleteBin6Fill>
           </IconButton>
@@ -256,18 +289,26 @@ function Row({ item, resetCollapse }) {
                     <TableCell>Size</TableCell>
                     <TableCell align="right">Quantity</TableCell>
                     <TableCell align="right">Price</TableCell>
+                    <TableCell align="right">#</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {item.variants &&
                     item.variants.map((variant) => (
-                      <TableRow key={variant.color + variant.size}>
+                      <TableRow key={variant._id}>
                         <TableCell component="th" scope="row">
                           {variant.color}
                         </TableCell>
                         <TableCell>{variant.size}</TableCell>
                         <TableCell align="right">{variant.quantity}</TableCell>
                         <TableCell align="right">{variant.price}</TableCell>
+                        <TableCell align="right">
+                          <IconButton
+                            onClick={() => deleteVariant(item._id, variant._id)}
+                          >
+                            <RxCross1></RxCross1>
+                          </IconButton>
+                        </TableCell>
                       </TableRow>
                     ))}
                 </TableBody>

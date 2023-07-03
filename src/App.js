@@ -6,7 +6,6 @@ import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import Dashboard from "./components/Dashboard";
 import ProductDetailPage from "./components/ProductDetailPage";
-import User from "./components/User";
 import EditProducts from "./components/EditProducts";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
