@@ -171,15 +171,6 @@ input {
   transition: 0.5s;
 }
 
-.dark {
-  background-color: #333;
-  color: #fff;
-}
-.light {
-  background-color: #fff;
-  color: #333;
-}
-
 .bodyContent {
   display: flex;
 }
@@ -378,7 +369,6 @@ form.login {
   border-radius: 10px;
 }
 
-
 .createProductBox {
   background-color: white;
   margin-top: 1rem;
@@ -392,6 +382,7 @@ form.login {
 
 .createProductlistElement :hover {
   background-color: #e7ebf0;
+}
 
 .ContainerForm {
   display: flex;
@@ -480,5 +471,106 @@ form.login {
   100% {
     transform: rotate(360deg);
   }
+}
 
+/* daaaaaark and white */
+
+/* Light theme */
+body.light {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.navbar.light {
+  background-color: #f3f4f6;
+  color: #000000;
+}
+
+.but.light {
+  background-color: #ffffff;
+  color: #4b5563;
+}
+
+/* Dark theme */
+body.dark {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.navbar.dark {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.but.dark {
+  background-color: #030303;
+  color: #ffffff;
+}
+
+/* dashboard  */
+
+.dashboardTopContainer {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border-radius: 4px;
+  margin-right: 1rem;
+}
+
+.dark {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.light {
+  background-color: #f5f5f5;
+  color: #000000;
+}
+
+.tableCell {
+  padding: 1rem;
+}
+
+.TableContainer.dark {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.TableHead.dark {
+  background-color: #000000;
+  color: #ffffff;
+}
+.TableCell.dark {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.TableContainer.dark {
+  background-color: #000000;
+  color: #ffffff;
+  border: 1px solid #ffffff; /* Add this line */
+}
+
+.dark .tableCell {
+  color: #ffffff;
+}
+
+.dark .search-input {
+  border-color: #ffffff;
+}
+
+.dashboardTopContainer.dark {
+  background-color: #373333;
+  color: #ffffff;
+}
+
+.refresdark.dark button:hover {
+  background: #373333;
+  color: white;
+  transition: 0.5s;
+}
+
+.sidebar.dark {
+  background-color: #373333;
+  color: #ffffff;
 }

@@ -17,6 +17,19 @@ import { Navigate } from "react-router-dom";
 
 function App() {
   const [user, setUser] = useState(null);
+  const [themeMode, setThemeMode] = useState("light");
+
+  const toggleThemeMode = () => {
+    if (themeMode === "light") {
+      setThemeMode("dark");
+      document.body.classList.add("dark");
+      document.body.classList.remove("light");
+    } else {
+      setThemeMode("light");
+      document.body.classList.add("light");
+      document.body.classList.remove("dark");
+    }
+  };
 
   useEffect(() => {
     if (!user) {
@@ -25,7 +38,7 @@ function App() {
   }, [user]);
 
   return (
-    <>
+    <div className={`app ${themeMode}`}>
       {!user ? (
         <>
           <Routes>
@@ -50,17 +63,30 @@ function App() {
         </>
       ) : (
         <>
-          <Navbar user={user} setUser={setUser}></Navbar>
-          <div className="bodyContent">
-            <Sidebar></Sidebar>
+          <Navbar
+            user={user}
+            setUser={setUser}
+            button={<button onClick={toggleThemeMode}>Toggle Theme</button>}
+            themeMode={themeMode}
+            toggleThemeMode={toggleThemeMode}
+          ></Navbar>
+
+          <>
+            <Sidebar themeMode={themeMode}></Sidebar>
             <div id="bodyContentRight">
               <Routes>
-                <Route path="/" element={<Dashboard></Dashboard>}></Route>
-                <Route path="/product/:id/:color/:size" element={<ProductDetailPage></ProductDetailPage>}></Route>
+                <Route
+                  path="/"
+                  element={<Dashboard themeMode={themeMode}></Dashboard>}
+                ></Route>
+                <Route
+                  path="/product/:id/:color/:size"
+                  element={<ProductDetailPage></ProductDetailPage>}
+                ></Route>
                 <Route path="/users" element={<User></User>}></Route>
                 <Route
                   path="/Editproducts"
-                  element={<EditProducts></EditProducts>}
+                  element={<EditProducts themeMode={themeMode}></EditProducts>}
                 ></Route>
                 <Route
                   path="/editprofile"
@@ -69,10 +95,10 @@ function App() {
                 <Route path="*" element={<Navigate to="/" />} />
               </Routes>
             </div>
-          </div>
+          </>
         </>
       )}
-    </>
+    </div>
   );
 }
 

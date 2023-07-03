@@ -27,7 +27,7 @@ import { RiDeleteBin6Fill } from "react-icons/ri";
 import PaginationDashboard from "./PaginationDashboard";
 import CreateProduct from "./CreateProduct";
 
-export default function EditProducts() {
+export default function EditProducts({ themeMode }) {
   const [resetCollapse, setResetCollapse] = useState(false);
   const [stockInfo, setStockInfo] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -71,8 +71,8 @@ export default function EditProducts() {
   }, []);
   return (
     <>
-      <Tabs className="tabsHeader">
-        <TabList className="tablist">
+      <Tabs className={`tabsHeader ${themeMode}`}>
+        <TabList className={`tablist ${themeMode}`}>
           <Tab
             style={{
               marginLeft: "1rem",

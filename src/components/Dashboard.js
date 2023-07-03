@@ -27,7 +27,7 @@ import ListAltIcon from "@mui/icons-material/ListAlt";
 import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
 import PaginationDashboard from "./PaginationDashboard";
 
-export default function Dashboard() {
+export default function Dashboard({ themeMode }) {
   const [resetCollapse, setResetCollapse] = useState(false);
   const [stockInfo, setStockInfo] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -81,10 +81,10 @@ export default function Dashboard() {
   const totalPages = Math.ceil(filteredStockInfo.length / rowsPerPage);
 
   return (
-    <Box m={3}>
+    <Box m={3} className={themeMode}>
       <Box display="flex" justifyContent="space-between" mb={2}>
         <Box
-          className="dashboardTopContainer"
+          className={`dashboardTopContainer ${themeMode}`}
           sx={{ backgroundColor: "#A908AC", color: "white" }}
         >
           <ShoppingCartIcon
@@ -96,7 +96,7 @@ export default function Dashboard() {
           </Typography>
         </Box>
         <Box
-          className="dashboardTopContainer"
+          className={`dashboardTopContainer ${themeMode}`}
           sx={{ backgroundColor: "#24A005", color: "white" }}
         >
           <EuroSymbolIcon
@@ -106,7 +106,7 @@ export default function Dashboard() {
           <Typography variant="h5">Total Value: {totalValue}</Typography>
         </Box>
         <Box
-          className="dashboardTopContainer"
+          className={`dashboardTopContainer ${themeMode}`}
           sx={{ backgroundColor: "#D10000", color: "white" }}
         >
           <RemoveShoppingCartIcon
@@ -116,7 +116,7 @@ export default function Dashboard() {
           <Typography variant="h5">Out of Stock: {outOfStockCount}</Typography>
         </Box>
         <Box
-          className="dashboardTopContainer"
+          className={`dashboardTopContainer ${themeMode}`}
           sx={{ backgroundColor: "#2982EA", color: "white" }}
         >
           <ListAltIcon
@@ -136,7 +136,7 @@ export default function Dashboard() {
               <div
                 style={{
                   display: "flex",
-                  color: "#1976D2",
+                  color: themeMode === "dark" ? "white" : "black",
                 }}
               >
                 <SearchIcon sx={{ marginRight: "0.5rem" }}></SearchIcon>
@@ -149,31 +149,69 @@ export default function Dashboard() {
           onFocus={handleFocus}
           onBlur={handleBlur}
           onChange={(event) => setSearchTerm(event.target.value)}
-          sx={{ marginBottom: "1rem", maxWidth: "400px", width: "100%" }}
+          sx={{
+            marginBottom: "1rem",
+            maxWidth: "400px",
+            width: "100%",
+            border: themeMode === "dark" ? "1px solid white" : "",
+            borderRadius: "5px",
+          }}
         />
       </div>
 
-      <TableContainer component={Paper}>
+      <TableContainer
+        className={`TableContainer ${themeMode}`}
+        component={Paper}
+      >
         <Table
           sx={{
             borderCollapse: "separate",
           }}
         >
-          <TableHead sx={{ backgroundColor: "#F3F4F6" }}>
-            <TableRow>
+          <TableHead
+            className={`TableHead ${themeMode}`}
+            sx={{ backgroundColor: "#F3F4F6" }}
+          >
+            <TableRow className={`TableRow ${themeMode}`}>
               <TableCell></TableCell>
-              <TableCell sx={{ fontWeight: "600" }} align="center">
+              <TableCell
+                className={`TableCell ${themeMode}`}
+                sx={{ fontWeight: "600" }}
+                align="center"
+              >
                 Image
               </TableCell>
-              <TableCell sx={{ fontWeight: "600" }}>Name</TableCell>
-              <TableCell sx={{ fontWeight: "600" }}>Category</TableCell>
-              <TableCell sx={{ fontWeight: "600" }} align="right">
+              <TableCell
+                className={`TableCell ${themeMode}`}
+                sx={{ fontWeight: "600" }}
+              >
+                Name
+              </TableCell>
+              <TableCell
+                className={`TableCell ${themeMode}`}
+                sx={{ fontWeight: "600" }}
+              >
+                Category
+              </TableCell>
+              <TableCell
+                className={`TableCell ${themeMode}`}
+                sx={{ fontWeight: "600" }}
+                align="right"
+              >
                 Quantity
               </TableCell>
-              <TableCell sx={{ fontWeight: "600" }} align="right">
+              <TableCell
+                className={`TableCell ${themeMode}`}
+                sx={{ fontWeight: "600" }}
+                align="right"
+              >
                 Price
               </TableCell>
-              <TableCell sx={{ fontWeight: "600" }} align="right">
+              <TableCell
+                className={`TableCell ${themeMode}`}
+                sx={{ fontWeight: "600" }}
+                align="right"
+              >
                 Total Price
               </TableCell>
             </TableRow>
@@ -182,7 +220,11 @@ export default function Dashboard() {
             {filteredStockInfo
               .slice(page * rowsPerPage, (page + 1) * rowsPerPage)
               .map((item) => (
-                <Row item={item} resetCollapse={resetCollapse}></Row>
+                <Row
+                  item={item}
+                  resetCollapse={resetCollapse}
+                  themeMode={themeMode}
+                />
               ))}
           </TableBody>
         </Table>
@@ -198,7 +240,7 @@ export default function Dashboard() {
   );
 }
 
-function Row({ item, resetCollapse }) {
+function Row({ item, resetCollapse, themeMode }) {
   const { row } = item;
   const [open, setOpen] = React.useState(false);
 
@@ -208,15 +250,13 @@ function Row({ item, resetCollapse }) {
     setOpen(false);
   }, [resetCollapse]);
 
-
-
   return (
     <React.Fragment>
       <TableRow
         key={item.id}
         sx={{
           "& > *": { borderBottom: "unset" },
-          backgroundColor: open ? "#E5E7EB" : "inherit",
+          backgroundColor: open ? "#black" : "inherit",
         }}
       >
         <TableCell>
@@ -225,7 +265,15 @@ function Row({ item, resetCollapse }) {
             size="small"
             onClick={() => setOpen(!open)}
           >
-            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+            {open ? (
+              <KeyboardArrowUpIcon
+                sx={{ color: themeMode === "dark" ? "white" : "" }}
+              />
+            ) : (
+              <KeyboardArrowDownIcon
+                sx={{ color: themeMode === "dark" ? "white" : "" }}
+              />
+            )}
           </IconButton>
         </TableCell>
         <TableCell
@@ -260,6 +308,7 @@ function Row({ item, resetCollapse }) {
             paddingBottom: 0,
             paddingTop: 0,
             backgroundColor: "#F3F4F6",
+            backgroundColor: themeMode === "dark" ? "black" : "#F3F4F6",
           }}
           colSpan={7}
         >
@@ -272,15 +321,47 @@ function Row({ item, resetCollapse }) {
                     item.variants.map((variant) => (
                       <TableRow
                         key={variant.color + variant.size}
-                        onClick={() => navigate(`/product/${item._id}/${variant.color}/${variant.size}`)}
-                        style={{ cursor: 'pointer' }}
+                        onClick={() =>
+                          navigate(
+                            `/product/${item._id}/${variant.color}/${variant.size}`
+                          )
+                        }
+                        style={{
+                          cursor: "pointer",
+                        }}
                       >
-                        <TableCell component="th" scope="row">
+                        <TableCell
+                          style={{
+                            color: themeMode === "dark" ? "white" : "black",
+                          }}
+                          component="th"
+                          scope="row"
+                        >
                           {variant.color}
                         </TableCell>
-                        <TableCell>{variant.size}</TableCell>
-                        <TableCell align="right">{variant.quantity}</TableCell>
-                        <TableCell align="right">{variant.price}</TableCell>
+                        <TableCell
+                          style={{
+                            color: themeMode === "dark" ? "white" : "black",
+                          }}
+                        >
+                          {variant.size}
+                        </TableCell>
+                        <TableCell
+                          style={{
+                            color: themeMode === "dark" ? "white" : "black",
+                          }}
+                          align="right"
+                        >
+                          {variant.quantity}
+                        </TableCell>
+                        <TableCell
+                          style={{
+                            color: themeMode === "dark" ? "white" : "black",
+                          }}
+                          align="right"
+                        >
+                          {variant.price}
+                        </TableCell>
                       </TableRow>
                     ))}
                 </TableBody>
@@ -292,6 +373,3 @@ function Row({ item, resetCollapse }) {
     </React.Fragment>
   );
 }
-
-
-
