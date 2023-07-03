@@ -316,7 +316,7 @@ export default function CreateProduct({ themeMode }) {
         {!isParentItem && (
           <>
             <Typography sx={{ marginTop: "2rem" }}>Quantity/Price</Typography>
-            <Box boxShadow={1} className="createProductBox">
+            <Box boxShadow={1} className={`createProductBox ${themeMode}`}>
               <FormControl sx={{ width: "50%", paddingRight: "1rem" }}>
                 <TextField
                   type="number"
@@ -339,7 +339,7 @@ export default function CreateProduct({ themeMode }) {
               </FormControl>
             </Box>
             <Typography sx={{ marginTop: "2rem" }}>Size/Color</Typography>
-            <Box boxShadow={1} className="createProductBox">
+            <Box className={`createProductBox ${themeMode}`} boxShadow={1}>
               <FormControl sx={{ width: "50%", paddingRight: "1rem" }}>
                 <TextField
                   value={size}
@@ -366,7 +366,7 @@ export default function CreateProduct({ themeMode }) {
             <Box
               boxShadow={1}
               sx={{ width: "100%" }}
-              className="createProductBox"
+              className={`createProductBox ${themeMode}`}
             >
               <div style={{ display: "flex" }}>
                 <TextField
@@ -420,7 +420,7 @@ export default function CreateProduct({ themeMode }) {
             <Box
               boxShadow={1}
               sx={{ width: "100%" }}
-              className="createProductBox"
+              className={`createProductBox ${themeMode}`}
             >
               <div style={{ display: "flex" }}>
                 <TextField
@@ -466,7 +466,7 @@ export default function CreateProduct({ themeMode }) {
               </div>
             </Box>
             <Typography sx={{ marginTop: "2rem" }}>Description</Typography>
-            <Box boxShadow={1} className="createProductBox">
+            <Box boxShadow={1} className={`createProductBox ${themeMode}`}>
               <TextField
                 sx={{ width: "100%", paddingRight: "1rem" }}
                 variant="standard"
@@ -477,12 +477,7 @@ export default function CreateProduct({ themeMode }) {
             </Box>
           </>
         )}
-        <Typography
-          sx={{ marginTop: "2rem" }}
-          className={`createProductBox ${themeMode}`}
-        >
-          Upload Image
-        </Typography>
+        <Typography sx={{ marginTop: "2rem" }}>Upload Image</Typography>
         <Box
           boxShadow={1}
           className={`createProductBox ${themeMode}`}

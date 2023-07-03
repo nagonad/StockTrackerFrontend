@@ -88,7 +88,12 @@ function App() {
                 ></Route>
                 <Route
                   path="/editprofile"
-                  element={<Editprofile user={user}></Editprofile>}
+                  element={
+                    <Editprofile
+                      themeMode={themeMode}
+                      user={user}
+                    ></Editprofile>
+                  }
                 ></Route>
                 <Route path="*" element={<Navigate to="/" />} />
               </Routes>

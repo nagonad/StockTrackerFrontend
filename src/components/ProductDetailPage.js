@@ -17,7 +17,7 @@ import {
 } from "@mui/material";
 import { NavigateBefore, NavigateNext } from "@mui/icons-material";
 
-function ProductDetailPage() {
+function ProductDetailPage({ themeMode }) {
   const [product, setProduct] = useState(null);
   const [selectedVariant, setSelectedVariant] = useState(null);
   const [error, setError] = useState(null);
@@ -203,7 +203,11 @@ function ProductDetailPage() {
                   elevation={3}
                   sx={{ p: 3, bgcolor: "#F8F8F8", borderRadius: "8px" }}
                 >
-                  <Typography variant="h6" sx={{ marginBottom: 1 }}>
+                  <Typography
+                    variant="h6"
+                    className={`createProductBox ${themeMode}`}
+                    sx={{ marginBottom: 1 }}
+                  >
                     Technical Specifications:
                   </Typography>
                   {Array.isArray(selectedVariant.technicalSpecifications) ? (

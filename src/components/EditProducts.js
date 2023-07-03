@@ -295,7 +295,12 @@ function Row({ item, resetCollapse, deleteProduct, deleteVariant, themeMode }) {
           <img
             src={item.imageUrl}
             alt="Product"
-            style={{ width: "40px", height: "40px" }}
+            style={{
+              borderRadius: "50%",
+              width: "50px",
+              height: "50px",
+              overflow: "hidden",
+            }}
           />
         </TableCell>
         <TableCell className="tableCell">{item.name}</TableCell>

@@ -83,10 +83,9 @@ input {
   width: 100%;
 }
 .loginform label {
-  margin-top: 1rem;
   font-family: "Nunito";
   font-weight: 600;
-  color: #828282;
+  color: #000000;
 }
 
 .loginrightinnercontainer div:nth-child(2) {
@@ -208,6 +207,7 @@ input {
 
 .editform {
   margin-left: 10px;
+  margin-right: 10px;
   display: flex;
   flex-direction: column;
 }
@@ -266,6 +266,7 @@ input {
   padding: 8px;
   border: 1px solid #ccc;
   background: #ffffff;
+  border-radius: 4px;
 }
 
 .label {
@@ -355,8 +356,7 @@ form.login {
   border-radius: 4px;
 }
 
-
-.submitcreateuser{
+.submitcreateuser {
   width: 100%;
 }
 
@@ -604,5 +604,32 @@ body.dark {
 
 .TextField.dark {
   background-color: #373333;
+  color: #ffffff;
+}
+
+.Editprofile.dark {
+  background-color: #373333;
+  color: #ffffff;
+}
+
+.tablist.dark {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.value.dark {
+  background-color: #373333;
+  color: #ffffff;
+  border: none;
+}
+.panel.dark#password {
+  margin-top: 2px;
+  padding: 8px;
+  border: none;
+  background: #373333;
+  align-self: center;
+}
+
+.label.dark {
   color: #ffffff;
 }

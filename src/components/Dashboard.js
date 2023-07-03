@@ -79,7 +79,11 @@ export default function Dashboard({ themeMode }) {
   const totalPages = Math.ceil(filteredStockInfo.length / rowsPerPage);
 
   return (
-    <Box m={3} className={themeMode}>
+    <Box
+      m={3}
+      className={themeMode}
+      // sx={{ maxWidth: "800px", margin: "0 auto" }}
+    >
       <Box display="flex" justifyContent="space-between" mb={2}>
         <Box
           className={`dashboardTopContainer ${themeMode}`}
@@ -283,7 +287,12 @@ function Row({ item, resetCollapse, themeMode }) {
           <img
             src={item.imageUrl}
             alt="Product"
-            style={{ width: "40px", height: "40px" }}
+            style={{
+              borderRadius: "50%",
+              width: "50px",
+              height: "50px",
+              overflow: "hidden",
+            }}
           />
         </TableCell>
         <TableCell className="tableCell">{item.name}</TableCell>
