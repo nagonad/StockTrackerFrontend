@@ -208,10 +208,12 @@ input {
 
 .editform {
   margin-left: 10px;
+  display: flex;
+  flex-direction: column;
 }
 
 .editsubmit {
-  width: 150px;
+  width: 100%;
 }
 .tabs {
   display: flex;
@@ -245,11 +247,12 @@ input {
   margin-top: 2px;
   padding: 8px;
   border: 1px solid #ccc;
-  background: #ece39d;
+  background: #ffffff;
+  align-self: center;
 }
 
 .tab-panel input[type="submit"] {
-  background-color: #4caf50;
+  background-color: #0d7cd7;
   color: #fff;
   border: none;
   cursor: pointer;
@@ -262,11 +265,13 @@ input {
 .value {
   padding: 8px;
   border: 1px solid #ccc;
-  background: #ece39d;
+  background: #ffffff;
 }
 
 .label {
+  font-family: Nunito;
   font-weight: bold;
+  color: #828282;
 }
 
 body {
@@ -318,7 +323,7 @@ input {
   box-sizing: border-box;
 }
 form button {
-  background: var(--primary);
+  background: #0d7cd7;
   border: 0;
   color: #fff;
   padding: 10px;
@@ -341,11 +346,18 @@ input.error {
 
 form.signup,
 form.login {
+  display: flex;
+  flex-direction: column;
   max-width: 400px;
   margin: 40px auto;
   padding: 20px;
-  background: #fff;
+  background: transparent;
   border-radius: 4px;
+}
+
+
+.submitcreateuser{
+  width: 100%;
 }
 
 .tableCell {

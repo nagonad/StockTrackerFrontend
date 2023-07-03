@@ -150,7 +150,7 @@ export default function CreateProduct({ themeMode }) {
 
       try {
         const response = await axios.post(
-          "http://localhost:8080/stockinfo/",
+          "https://stocktrackerbackend.onrender.com/stockinfo/",
           formData
         );
         resetParent();
@@ -177,7 +177,7 @@ export default function CreateProduct({ themeMode }) {
         formData.append("description", description);
 
         const response = await axios.post(
-          "http://localhost:8080/stockinfo/variant",
+          "https://stocktrackerbackend.onrender.com/stockinfo/variant",
           formData
         );
         handleMessage(response.data.message);

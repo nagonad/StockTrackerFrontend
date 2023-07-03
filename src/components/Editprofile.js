@@ -69,7 +69,7 @@ export default function Editprofile({ setUser, user }) {
               <label className="label">Email</label>
               <div className="value">{user.userEmail}</div>
             </div>
-            <form onSubmit={handleSubmit} className="editform">
+            <form onSubmit={handleSubmit} className="editform loginform">
               <label className="label">Change password</label>
               <input
                 onChange={(e) => setCurrentpassword(e.target.value)}
