@@ -70,7 +70,7 @@ export default function EditProducts() {
     console.log(id);
     try {
       const response = await axios.delete(
-        `http://localhost:8080/stockinfo/${id}`
+        `https://stocktrackerbackend.onrender.com/stockinfo/${id}`
       );
       fetchStockInfo();
       console.log(response);
@@ -82,7 +82,7 @@ export default function EditProducts() {
   const deleteVariant = async (id, variantId) => {
     try {
       const response = await axios.delete(
-        `http://localhost:8080/stockinfo/variant/${id}/${variantId}`
+        `https://stocktrackerbackend.onrender.com/stockinfo/variant/${id}/${variantId}`
       );
       fetchStockInfo();
       console.log(response);
