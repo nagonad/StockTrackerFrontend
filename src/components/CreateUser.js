@@ -35,7 +35,7 @@ export default function CreateUser({ setUser }) {
 
   return (
     <form className="signup" onSubmit={handleSubmit}>
-      <h3>Create User</h3>
+      {/* <h3>Create User</h3> */}
 
       <label>Username: </label>
       <input
@@ -58,7 +58,7 @@ export default function CreateUser({ setUser }) {
         value={password}
       />
 
-      <button type="submit">Create</button> 
+      <button class="submitcreateuser" type="submit">Create</button> 
       {error && <div className="error">{error}</div>}
     </form>
   );
