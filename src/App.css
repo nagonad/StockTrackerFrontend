@@ -369,6 +369,10 @@ form.login {
   padding: 1rem;
   border-radius: 4px;
 }
+.createProductBox.dark {
+  background-color: #373333;
+  color: #ffffff;
+}
 
 .createProductlistElement {
   display: flex;
@@ -376,7 +380,6 @@ form.login {
 
 .createProductlistElement :hover {
   background-color: #e7ebf0;
-}
 }
 
 .ContainerForm {
@@ -564,7 +567,6 @@ body.dark {
   color: white;
   transition: 0.5s;
 }
-}
 
 .addproductbuttoncontainer {
   margin: 1rem;
@@ -575,9 +577,20 @@ body.dark {
 .sidebar.dark {
   background-color: #373333;
   color: #ffffff;
+}
+
 .createproductnotificationbox {
   padding: 0.5rem 1rem;
   margin-bottom: 1.5rem;
   height: 40px;
   border-radius: 4px;
+}
+
+.react-tabs__tab {
+  border: none;
+}
+
+.TextField.dark {
+  background-color: #373333;
+  color: #ffffff;
 }

@@ -27,7 +27,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function CreateProduct() {
+export default function CreateProduct({ themeMode }) {
   const classes = useStyles();
 
   const [isParentItem, setIsParentItem] = useState(true);
@@ -255,8 +255,9 @@ export default function CreateProduct() {
           </Box>
         </div>
         <Typography>Name of the Product</Typography>
-        <Box boxShadow={1} className="createProductBox">
+        <Box boxShadow={1} className={`createProductBox ${themeMode}`}>
           <TextField
+            className={`TextField ${themeMode}`}
             sx={{ width: "50%", paddingRight: "1rem" }}
             InputLabelProps={{ shrink: false }}
             placeholder="Name"
@@ -267,7 +268,7 @@ export default function CreateProduct() {
         </Box>
 
         <Typography sx={{ marginTop: "2rem" }}>Parent/Sub Item</Typography>
-        <Box boxShadow={1} className="createProductBox">
+        <Box boxShadow={1} className={`createProductBox ${themeMode}`}>
           <FormControl sx={{ width: "50%", paddingRight: "1rem" }}>
             <Select
               variant="standard"
@@ -296,7 +297,7 @@ export default function CreateProduct() {
           )}
         </Box>
         <Typography sx={{ marginTop: "2rem" }}>Category</Typography>
-        <Box boxShadow={1} className="createProductBox">
+        <Box boxShadow={1} className={`createProductBox ${themeMode}`}>
           <FormControl sx={{ width: "50%" }}>
             <Select
               variant="standard"
@@ -476,10 +477,15 @@ export default function CreateProduct() {
             </Box>
           </>
         )}
-        <Typography sx={{ marginTop: "2rem" }}>Upload Image</Typography>
+        <Typography
+          sx={{ marginTop: "2rem" }}
+          className={`createProductBox ${themeMode}`}
+        >
+          Upload Image
+        </Typography>
         <Box
           boxShadow={1}
-          className="createProductBox"
+          className={`createProductBox ${themeMode}`}
           sx={{ display: "flex" }}
         >
           <div style={{ flex: "1" }}>

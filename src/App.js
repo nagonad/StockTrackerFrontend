@@ -82,7 +82,6 @@ function App() {
                   path="/product/:id/:color/:size"
                   element={<ProductDetailPage></ProductDetailPage>}
                 ></Route>
-                <Route path="/users" element={<User></User>}></Route>
                 <Route
                   path="/Editproducts"
                   element={<EditProducts themeMode={themeMode}></EditProducts>}
