@@ -81,48 +81,7 @@ export default function Dashboard() {
   return (
     <Box m={3}>
       <Box display="flex" justifyContent="space-between" mb={2}>
-        <Box
-          className="dashboardTopContainer"
-          sx={{ backgroundColor: "#A908AC", color: "white" }}
-        >
-          <ShoppingCartIcon
-            fontSize="large"
-            sx={{ marginRight: "1rem" }}
-          ></ShoppingCartIcon>
-          <Typography variant="h5">
-            Total Products: {stockInfo.length}
-          </Typography>
-        </Box>
-        <Box
-          className="dashboardTopContainer"
-          sx={{ backgroundColor: "#24A005", color: "white" }}
-        >
-          <EuroSymbolIcon
-            fontSize="large"
-            sx={{ marginRight: "1rem" }}
-          ></EuroSymbolIcon>
-          <Typography variant="h5">Total Value: {totalValue}</Typography>
-        </Box>
-        <Box
-          className="dashboardTopContainer"
-          sx={{ backgroundColor: "#D10000", color: "white" }}
-        >
-          <RemoveShoppingCartIcon
-            fontSize="large"
-            sx={{ marginRight: "1rem" }}
-          ></RemoveShoppingCartIcon>
-          <Typography variant="h5">Out of Stock: {outOfStockCount}</Typography>
-        </Box>
-        <Box
-          className="dashboardTopContainer"
-          sx={{ backgroundColor: "#2982EA", color: "white" }}
-        >
-          <ListAltIcon
-            fontSize="large"
-            sx={{ marginRight: "1rem" }}
-          ></ListAltIcon>
-          <Typography variant="h5">Categories: {categories}</Typography>
-        </Box>
+        {/* ... */}
       </Box>
       <Divider sx={{ marginBottom: "1rem" }}></Divider>
       <div style={{ display: "flex", width: "100%", justifyContent: "center" }}>
