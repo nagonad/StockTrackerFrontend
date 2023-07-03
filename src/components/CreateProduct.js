@@ -12,17 +12,12 @@ import {
   TextField,
   InputAdornment,
   Input,
-  List,
-  ListItem,
-  ListItemText,
   IconButton,
 } from "@mui/material";
 import { makeStyles } from "@material-ui/core/styles";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import InboxIcon from "@mui/icons-material/Inbox";
-import { AddLink } from "@mui/icons-material";
 import { TiDeleteOutline } from "react-icons/ti";
+import { BiCheckCircle } from "react-icons/bi";
+import { BsExclamationCircle } from "react-icons/bs";
 
 const useStyles = makeStyles({
   hoverStyle: {
@@ -37,6 +32,7 @@ export default function CreateProduct() {
 
   const [isParentItem, setIsParentItem] = useState(true);
   const [selectedParentItem, setSelectedParentItem] = useState("");
+  const [name, setName] = useState("");
   const [stockInfo, setStockInfo] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -49,6 +45,10 @@ export default function CreateProduct() {
   const [features, setFeatures] = useState("");
   const [fList, setFList] = useState([]);
   const [description, setDescription] = useState("");
+  const [image, setImage] = useState("");
+  const [images, setImages] = useState([]);
+  const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
 
   const addToList = (value, list) => {
     if (list === "technicalSpecifications") {
@@ -70,7 +70,6 @@ export default function CreateProduct() {
   };
 
   const removeFromList = (value, list) => {
-    console.log("clocked");
     if (list === "technicalSpecifications") {
       setTsList((prev) => {
         let arr = prev;
@@ -87,12 +86,43 @@ export default function CreateProduct() {
     }
   };
 
+  const handleMessage = (msg) => {
+    setError("");
+    setMessage(msg);
+  };
+  const handleError = (msg) => {
+    setMessage("");
+    setError(msg);
+  };
+
+  const handleUpload = (e) => {
+    const fileList = Array.from(e.target.files);
+    const updatedFiles = fileList.map((file) => ({
+      name: file.name,
+      file: file,
+    }));
+    setImages((prevFiles) => [...prevFiles, ...updatedFiles]);
+  };
+
+  const handleDelete = (clickedImage) => {
+    setImages((prev) => {
+      let arr = prev;
+      let result = _.filter(arr, (el) => el !== clickedImage);
+      return [...result];
+    });
+  };
+
+  const resetParent = () => {
+    setName("");
+    setSelectedCategory("");
+    setImage("");
+  };
+
   const fetchStockInfo = async () => {
     try {
       const response = await axios.get(
         "https://stocktrackerbackend.onrender.com/stockinfo"
       );
-      console.log(response);
       if (!Array.isArray(response.data)) {
         console.error("Data from server is not an array:", response.data);
       } else {
@@ -101,6 +131,59 @@ export default function CreateProduct() {
       }
     } catch (error) {
       console.error("Failed to fetch stockInfo", error);
+    }
+  };
+
+  const createProduct = async () => {
+    if (isParentItem) {
+      if (!image || !name || !selectedCategory) {
+        handleError("Please fill all necessary fields");
+        return;
+      }
+    }
+
+    if (isParentItem) {
+      const formData = new FormData();
+      formData.append("picture", image, image.name);
+      formData.append("name", name);
+      formData.append("category", selectedCategory);
+
+      try {
+        const response = await axios.post(
+          "http://localhost:8080/stockinfo/",
+          formData
+        );
+        resetParent();
+        handleMessage(response.data.message);
+      } catch (error) {
+        console.log(error);
+        handleError(error.response.data.error);
+      }
+    } else {
+      try {
+        const formData = new FormData();
+        images.forEach((image) => {
+          formData.append("picture", image.file, image.name);
+        });
+        formData.append("parentId", selectedParentItem);
+        formData.append("name", name);
+        formData.append("category", selectedCategory);
+        formData.append("quantity", quantity);
+        formData.append("price", price);
+        formData.append("size", size);
+        formData.append("color", color);
+        formData.append("technicalSpecifications", tsList);
+        formData.append("features", fList);
+        formData.append("description", description);
+
+        const response = await axios.post(
+          "http://localhost:8080/stockinfo/variant",
+          formData
+        );
+        handleMessage(response.data.message);
+      } catch (error) {
+        handleError(error.response.data.error);
+      }
     }
   };
 
@@ -118,6 +201,8 @@ export default function CreateProduct() {
       setFList([]);
       setDescription("");
       setSelectedParentItem("");
+      setImages([]);
+      setImage("");
     }
   }, [isParentItem]);
 
@@ -125,7 +210,7 @@ export default function CreateProduct() {
     <div
       style={{
         display: "flex",
-        padding: "2rem",
+        padding: "1rem 2rem",
         justifyContent: "center",
       }}
     >
@@ -136,18 +221,53 @@ export default function CreateProduct() {
           paddingBottom: "4rem",
         }}
       >
+        <div
+          className="createproductnotificationbox"
+          style={
+            message
+              ? { backgroundColor: "#EAF2EA" }
+              : error
+              ? { backgroundColor: "#FFEDD5" }
+              : { backgroundColor: "inherit" }
+          }
+        >
+          <Box
+            sx={{
+              fontSize: "24px",
+              display: message ? "flex" : "none",
+            }}
+          >
+            <BiCheckCircle
+              style={{ color: "#2E7D32", marginRight: "0.5rem" }}
+            ></BiCheckCircle>
+            <Typography>{message}</Typography>
+          </Box>
+          <Box
+            sx={{
+              fontSize: "24px",
+              display: error ? "flex" : "none",
+            }}
+          >
+            <BsExclamationCircle
+              style={{ color: "#D32F2F", marginRight: "0.5rem" }}
+            ></BsExclamationCircle>
+            <Typography>{error}</Typography>
+          </Box>
+        </div>
         <Typography>Name of the Product</Typography>
-        <Box className="createProductBox">
+        <Box boxShadow={1} className="createProductBox">
           <TextField
             sx={{ width: "50%", paddingRight: "1rem" }}
             InputLabelProps={{ shrink: false }}
             placeholder="Name"
             variant="standard"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
         </Box>
 
         <Typography sx={{ marginTop: "2rem" }}>Parent/Sub Item</Typography>
-        <Box className="createProductBox">
+        <Box boxShadow={1} className="createProductBox">
           <FormControl sx={{ width: "50%", paddingRight: "1rem" }}>
             <Select
               variant="standard"
@@ -167,14 +287,16 @@ export default function CreateProduct() {
                 onChange={(e) => setSelectedParentItem(e.target.value)}
               >
                 {stockInfo.map((el) => (
-                  <MenuItem value={el._id}>{el.name}</MenuItem>
+                  <MenuItem key={el._id} value={el._id}>
+                    {el.name}
+                  </MenuItem>
                 ))}
               </Select>
             </FormControl>
           )}
         </Box>
         <Typography sx={{ marginTop: "2rem" }}>Category</Typography>
-        <Box className="createProductBox">
+        <Box boxShadow={1} className="createProductBox">
           <FormControl sx={{ width: "50%" }}>
             <Select
               variant="standard"
@@ -182,38 +304,41 @@ export default function CreateProduct() {
               onChange={(e) => setSelectedCategory(e.target.value)}
             >
               {categories.map((el) => (
-                <MenuItem value={el}>{el}</MenuItem>
+                <MenuItem key={el} value={el}>
+                  {el}
+                </MenuItem>
               ))}
             </Select>
           </FormControl>
         </Box>
-        <Typography sx={{ marginTop: "2rem" }}>Quantity/Price</Typography>
-        <Box className="createProductBox">
-          <FormControl sx={{ width: "50%", paddingRight: "1rem" }}>
-            <TextField
-              type="number"
-              value={quantity}
-              onChange={(e) => setQuantity(e.target.value)}
-              label="Quantity"
-              variant="standard"
-            />
-          </FormControl>
-          <FormControl sx={{ width: "50%" }}>
-            <InputLabel>Price</InputLabel>
-            <Input
-              type="number"
-              value={price}
-              onChange={(e) => setPrice(e.target.value)}
-              startAdornment={
-                <InputAdornment position="start">$</InputAdornment>
-              }
-            />
-          </FormControl>
-        </Box>
+
         {!isParentItem && (
           <>
+            <Typography sx={{ marginTop: "2rem" }}>Quantity/Price</Typography>
+            <Box boxShadow={1} className="createProductBox">
+              <FormControl sx={{ width: "50%", paddingRight: "1rem" }}>
+                <TextField
+                  type="number"
+                  value={quantity}
+                  onChange={(e) => setQuantity(e.target.value)}
+                  label="Quantity"
+                  variant="standard"
+                />
+              </FormControl>
+              <FormControl sx={{ width: "50%" }}>
+                <InputLabel>Price</InputLabel>
+                <Input
+                  type="number"
+                  value={price}
+                  onChange={(e) => setPrice(e.target.value)}
+                  startAdornment={
+                    <InputAdornment position="start">$</InputAdornment>
+                  }
+                />
+              </FormControl>
+            </Box>
             <Typography sx={{ marginTop: "2rem" }}>Size/Color</Typography>
-            <Box className="createProductBox">
+            <Box boxShadow={1} className="createProductBox">
               <FormControl sx={{ width: "50%", paddingRight: "1rem" }}>
                 <TextField
                   value={size}
@@ -237,7 +362,11 @@ export default function CreateProduct() {
             <Typography sx={{ marginTop: "2rem" }}>
               Technical Specifications
             </Typography>
-            <Box sx={{ width: "100%" }} className="createProductBox">
+            <Box
+              boxShadow={1}
+              sx={{ width: "100%" }}
+              className="createProductBox"
+            >
               <div style={{ display: "flex" }}>
                 <TextField
                   sx={{ flex: "1", marginRight: "1rem" }}
@@ -264,6 +393,7 @@ export default function CreateProduct() {
               <div style={{ marginTop: "1rem", marginLeft: "0.5rem" }}>
                 {tsList.map((el, index) => (
                   <Box
+                    key={el}
                     className={classes.hoverStyle}
                     sx={{ display: "flex", alignItems: "center" }}
                   >
@@ -286,7 +416,11 @@ export default function CreateProduct() {
               </div>
             </Box>
             <Typography sx={{ marginTop: "2rem" }}>Features</Typography>
-            <Box sx={{ width: "100%" }} className="createProductBox">
+            <Box
+              boxShadow={1}
+              sx={{ width: "100%" }}
+              className="createProductBox"
+            >
               <div style={{ display: "flex" }}>
                 <TextField
                   sx={{ flex: "1", marginRight: "1rem" }}
@@ -310,6 +444,7 @@ export default function CreateProduct() {
               <div style={{ marginTop: "1rem", marginLeft: "0.5rem" }}>
                 {fList.map((el, index) => (
                   <Box
+                    key={el}
                     className={classes.hoverStyle}
                     sx={{ display: "flex", alignItems: "center" }}
                   >
@@ -330,7 +465,7 @@ export default function CreateProduct() {
               </div>
             </Box>
             <Typography sx={{ marginTop: "2rem" }}>Description</Typography>
-            <Box className="createProductBox">
+            <Box boxShadow={1} className="createProductBox">
               <TextField
                 sx={{ width: "100%", paddingRight: "1rem" }}
                 variant="standard"
@@ -341,6 +476,106 @@ export default function CreateProduct() {
             </Box>
           </>
         )}
+        <Typography sx={{ marginTop: "2rem" }}>Upload Image</Typography>
+        <Box
+          boxShadow={1}
+          className="createProductBox"
+          sx={{ display: "flex" }}
+        >
+          <div style={{ flex: "1" }}>
+            {isParentItem ? (
+              image && (
+                <Box
+                  className={classes.hoverStyle}
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                >
+                  <Typography sx={{ fontStyle: "italic" }}>
+                    {image.name}
+                  </Typography>
+                  <IconButton onClick={() => setImage("")}>
+                    <TiDeleteOutline></TiDeleteOutline>
+                  </IconButton>
+                </Box>
+              )
+            ) : (
+              <>
+                {images.map((image) => (
+                  <Box
+                    key={image.name}
+                    className={classes.hoverStyle}
+                    sx={{ display: "flex", justifyContent: "space-between" }}
+                  >
+                    <Typography sx={{ fontStyle: "italic" }}>
+                      {image.name}
+                    </Typography>
+                    <IconButton onClick={() => handleDelete(image)}>
+                      <TiDeleteOutline></TiDeleteOutline>
+                    </IconButton>
+                  </Box>
+                ))}
+              </>
+            )}
+          </div>
+          {isParentItem ? (
+            <>
+              <input
+                accept="image/*"
+                style={{ display: "none" }}
+                id="raised-button-file"
+                type="file"
+                onClick={(e) => {
+                  e.target.value = null;
+                }}
+                onChange={(e) => {
+                  setImage(e.target.files[0]);
+                }}
+              />
+              <label htmlFor="raised-button-file">
+                <Button variant="contained" component="span">
+                  Upload
+                </Button>
+              </label>
+            </>
+          ) : (
+            <>
+              <input
+                accept="image/*"
+                style={{ display: "none" }}
+                id="raised-button-file"
+                multiple
+                type="file"
+                onClick={(e) => {
+                  e.target.value = null;
+                }}
+                onChange={handleUpload}
+              />
+              <label htmlFor="raised-button-file">
+                <Button variant="contained" component="span">
+                  Upload
+                </Button>
+              </label>
+            </>
+          )}
+        </Box>
+        <div className="addproductbuttoncontainer">
+          <Button
+            onClick={() => {
+              window.scrollTo({
+                top: 0,
+                behavior: "smooth",
+              });
+              createProduct();
+            }}
+            sx={{ width: "100%" }}
+            variant="contained"
+          >
+            Add Product
+          </Button>
+        </div>
       </div>
     </div>
   );

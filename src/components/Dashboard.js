@@ -34,7 +34,6 @@ export default function Dashboard() {
   const [isFocused, setIsFocused] = useState(false);
 
   const closeDropdowns = () => {
-    console.log(resetCollapse);
     setResetCollapse((prev) => !prev);
   };
 
@@ -51,7 +50,6 @@ export default function Dashboard() {
         const response = await axios.get(
           "https://stocktrackerbackend.onrender.com/stockinfo"
         );
-        console.log(response);
         if (!Array.isArray(response.data)) {
           console.error("Data from server is not an array:", response.data);
         } else {
@@ -199,7 +197,6 @@ export default function Dashboard() {
 }
 
 function Row({ item, resetCollapse }) {
-  const { row } = item;
   const [open, setOpen] = React.useState(false);
 
   const navigate = useNavigate();
@@ -207,8 +204,6 @@ function Row({ item, resetCollapse }) {
   useEffect(() => {
     setOpen(false);
   }, [resetCollapse]);
-
-
 
   return (
     <React.Fragment>
@@ -271,9 +266,13 @@ function Row({ item, resetCollapse }) {
                   {item.variants &&
                     item.variants.map((variant) => (
                       <TableRow
-                        key={variant.color + variant.size}
-                        onClick={() => navigate(`/product/${item._id}/${variant.color}/${variant.size}`)}
-                        style={{ cursor: 'pointer' }}
+                        key={variant._id}
+                        onClick={() =>
+                          navigate(
+                            `/product/${item._id}/${variant.color}/${variant.size}`
+                          )
+                        }
+                        style={{ cursor: "pointer" }}
                       >
                         <TableCell component="th" scope="row">
                           {variant.color}
@@ -292,6 +291,3 @@ function Row({ item, resetCollapse }) {
     </React.Fragment>
   );
 }
-
-
-
