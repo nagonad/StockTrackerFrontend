@@ -225,7 +225,7 @@ function ProductDetailPage({ themeMode }) {
             </Grid>
           </Grid>
         </Grid>
-      </Grid>
+
     </Container>
   );
 }
