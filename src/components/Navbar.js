@@ -15,9 +15,14 @@ import Tooltip from "@mui/material/Tooltip";
 // import Settings from '@mui/icons-material/Settings';
 import Logout from "@mui/icons-material/Logout";
 
-
-export default function Navbar({ user, setUser }) {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+export default function Navbar({
+  user,
+  setUser,
+  button,
+  themeMode,
+  toggleThemeMode,
+}) {
+  const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const logout = () => {
     localStorage.removeItem("user");
@@ -35,34 +40,21 @@ export default function Navbar({ user, setUser }) {
     window.parent.location = window.parent.location.href;
   }
 
-  const [theme, setTheme] = useState("light");
-  const toggleTheme = () => {
-    if (theme === "light") {
-      setTheme("dark");
-    } else {
-      setTheme("light");
-    }
-  };
-  useEffect(() => {
-    document.body.className = theme;
-  }, [theme]);
-
   return (
     <div>
-      <Box className={`navbar ${theme}`} sx={{ boxShadow: 3 }}>
+      <Box className={`navbar ${themeMode}`} sx={{ boxShadow: 3 }}>
         <div className="logoContainer">
           <img src={logo} alt="logo" className="logo" />
           <h1 className="navbarFredoka">Stock Tracker</h1>
         </div>
 
-        <div className="refresdark">
+        <div className={`refresdark ${themeMode}`}>
           <button className="but" onClick={refreshPage}>
             <RefreshIcon sx={{ color: "#4b5563", marginRight: "0.5rem" }} />{" "}
             Refresh
           </button>
-
-          <button className="but" onClick={toggleTheme}>
-            <DarkModeIcon sx={{ color: "#4b5563", marginRight: "0.5rem" }} />
+          <button className="but" onClick={toggleThemeMode}>
+            <DarkModeIcon sx={{ color: "#4b5563", marginRight: "0.5rem" }} />{" "}
             Dark Mode
           </button>
           <Box
@@ -128,7 +120,6 @@ export default function Navbar({ user, setUser }) {
           </Menu>
         </div>
       </Box>
-
     </div>
   );
 }

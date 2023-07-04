@@ -30,7 +30,7 @@ function ResetPassword() {
     console.log(password, resetToken);
 
     const response = await fetch(
-      `http://localhost:8080/user/resetpassword/${resetToken}`,
+      `https://stocktrackerbackend.onrender.com/user/resetpassword/${resetToken}`,
       {
         method: "PUT",
         headers: {
