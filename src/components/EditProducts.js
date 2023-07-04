@@ -21,8 +21,9 @@ import SearchIcon from "@mui/icons-material/Search";
 import IconButton from "@mui/material/IconButton";
 import Collapse from "@mui/material/Collapse";
 
+import { BsExclamationCircle } from "react-icons/bs";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
-import { BiEdit } from "react-icons/bi";
+import { BiEdit, BiCheckCircle } from "react-icons/bi";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import { RxCross1 } from "react-icons/rx";
 import PaginationDashboard from "./PaginationDashboard";
@@ -30,16 +31,28 @@ import CreateProduct from "./CreateProduct";
 import EditProductDialog from "./EditProductDialog";
 import _ from "lodash";
 
-export default function EditProducts() {
+export default function EditProducts({ themeMode }) {
   const [resetCollapse, setResetCollapse] = useState(false);
   const [stockInfo, setStockInfo] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [isFocused, setIsFocused] = useState(false);
-  const [categories, setCategories] = useState({});
+  const [categories, setCategories] = useState([]);
 
   const [selectedProduct, setSelectedProduct] = useState({});
 
   const [dialogOpen, setDialogOpen] = React.useState(false);
+
+  const [error, setError] = React.useState("");
+  const [message, setMessage] = React.useState("");
+
+  const handleMessage = (msg) => {
+    setError("");
+    setMessage(msg);
+  };
+  const handleError = (msg) => {
+    setMessage("");
+    setError(msg);
+  };
 
   const handleClickOpen = () => {
     setDialogOpen(true);
@@ -115,18 +128,21 @@ export default function EditProducts() {
   return (
     <>
       <EditProductDialog
+        handleError={handleError}
+        handleMessage={handleMessage}
+        setSelectedProduct={setSelectedProduct}
         categories={categories}
         selectedProduct={selectedProduct}
         open={dialogOpen}
         handleClickOpen={handleClickOpen}
         handleClose={handleClose}
       ></EditProductDialog>
-      <Tabs className="tabsHeader">
-        <TabList className="tablist">
+      <Tabs className={`tabsHeader ${themeMode}`}>
+        <TabList className={`tablist ${themeMode}`}>
           <Tab
             style={{
-              marginLeft: "1rem",
               height: "100%",
+              Bottom: "none",
             }}
           >
             Edit Products
@@ -134,7 +150,40 @@ export default function EditProducts() {
           <Tab style={{ height: "100%" }}>Create new Product</Tab>
         </TabList>
         <TabPanel>
-          <Box marginX={2}>
+          <div
+            className="createproductnotificationbox editProductMainMessageContainer"
+            style={
+              message
+                ? { backgroundColor: "#EAF2EA" }
+                : error
+                ? { backgroundColor: "#FFEDD5" }
+                : { backgroundColor: "inherit" }
+            }
+          >
+            <Box
+              sx={{
+                fontSize: "24px",
+                display: message ? "flex" : "none",
+              }}
+            >
+              <BiCheckCircle
+                style={{ color: "#2E7D32", marginRight: "0.5rem" }}
+              ></BiCheckCircle>
+              <Typography>{message}</Typography>
+            </Box>
+            <Box
+              sx={{
+                fontSize: "24px",
+                display: error ? "flex" : "none",
+              }}
+            >
+              <BsExclamationCircle
+                style={{ color: "#D32F2F", marginRight: "0.5rem" }}
+              ></BsExclamationCircle>
+              <Typography>{error}</Typography>
+            </Box>
+          </div>
+          <Box marginX={2} className={themeMode}>
             <div
               style={{
                 display: "flex",
@@ -152,6 +201,7 @@ export default function EditProducts() {
                       style={{
                         display: "flex",
                         color: "#1976D2",
+                        color: themeMode === "dark" ? "white" : "black",
                       }}
                     >
                       <SearchIcon sx={{ marginRight: "0.5rem" }}></SearchIcon>
@@ -168,34 +218,78 @@ export default function EditProducts() {
                   marginBottom: "1rem",
                   maxWidth: "400px",
                   width: "100%",
+                  border: themeMode === "dark" ? "1px solid white" : "",
+                  borderRadius: "5px",
                 }}
               />
             </div>
-            <TableContainer component={Paper}>
+            <TableContainer
+              component={Paper}
+              className={`TableContainer ${themeMode}`}
+            >
               <Table
                 sx={{
                   borderCollapse: "separate",
                 }}
               >
-                <TableHead sx={{ backgroundColor: "#F3F4F6" }}>
-                  <TableRow>
+                <TableHead
+                  className={`TableHead ${themeMode}`}
+                  sx={{ backgroundColor: "#F3F4F6" }}
+                >
+                  <TableRow className={`TableRow ${themeMode}`}>
                     <TableCell></TableCell>
-                    <TableCell sx={{ fontWeight: "600" }} align="center">
+                    <TableCell
+                      sx={{ fontWeight: "600" }}
+                      align="center"
+                      className={`TableCell ${themeMode}`}
+                    >
                       Image
                     </TableCell>
-                    <TableCell sx={{ fontWeight: "600" }}>Name</TableCell>
-                    <TableCell sx={{ fontWeight: "600" }}>Category</TableCell>
-                    <TableCell sx={{ fontWeight: "600" }} align="right">
+                    <TableCell
+                      className={`TableCell ${themeMode}`}
+                      sx={{ fontWeight: "600" }}
+                    >
+                      Name
+                    </TableCell>
+                    <TableCell
+                      className={`TableCell ${themeMode}`}
+                      sx={{ fontWeight: "600" }}
+                    >
+                      Category
+                    </TableCell>
+                    <TableCell
+                      className={`TableCell ${themeMode}`}
+                      sx={{ fontWeight: "600" }}
+                      align="right"
+                    >
                       Quantity
                     </TableCell>
-                    <TableCell sx={{ fontWeight: "600" }} align="right">
+                    <TableCell
+                      className={`TableCell ${themeMode}`}
+                      sx={{ fontWeight: "600" }}
+                      align="right"
+                    >
                       Price
                     </TableCell>
-                    <TableCell sx={{ fontWeight: "600" }} align="right">
+                    <TableCell
+                      className={`TableCell ${themeMode}`}
+                      sx={{ fontWeight: "600" }}
+                      align="right"
+                    >
                       Total Price
                     </TableCell>
-                    <TableCell align="right">#</TableCell>
-                    <TableCell align="right">#</TableCell>
+                    <TableCell
+                      className={`TableCell ${themeMode}`}
+                      align="right"
+                    >
+                      #
+                    </TableCell>
+                    <TableCell
+                      className={`TableCell ${themeMode}`}
+                      align="right"
+                    >
+                      #
+                    </TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -210,6 +304,7 @@ export default function EditProducts() {
                         key={item._id}
                         item={item}
                         resetCollapse={resetCollapse}
+                        themeMode={themeMode}
                       ></Row>
                     ))}
                 </TableBody>
@@ -221,11 +316,12 @@ export default function EditProducts() {
               page={page}
               setPage={setPage}
               totalPages={totalPages}
+              themeMode={themeMode}
             />
           </Box>
         </TabPanel>
         <TabPanel>
-          <CreateProduct />
+          <CreateProduct themeMode={themeMode} />
         </TabPanel>
       </Tabs>
     </>
@@ -237,6 +333,7 @@ function Row({
   resetCollapse,
   deleteProduct,
   deleteVariant,
+  themeMode,
   handleClickOpen,
   setSelectedProduct,
 }) {
@@ -253,7 +350,7 @@ function Row({
         key={item._id}
         sx={{
           "& > *": { borderBottom: "unset" },
-          backgroundColor: open ? "#E5E7EB" : "inherit",
+          backgroundColor: open ? "#black" : "inherit",
         }}
       >
         <TableCell>
@@ -262,7 +359,15 @@ function Row({
             size="small"
             onClick={() => setOpen(!open)}
           >
-            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+            {open ? (
+              <KeyboardArrowUpIcon
+                sx={{ color: themeMode === "dark" ? "white" : "" }}
+              />
+            ) : (
+              <KeyboardArrowDownIcon
+                sx={{ color: themeMode === "dark" ? "white" : "" }}
+              />
+            )}
           </IconButton>
         </TableCell>
         <TableCell
@@ -274,7 +379,12 @@ function Row({
           <img
             src={item.imageUrl}
             alt="Product"
-            style={{ width: "40px", height: "40px" }}
+            style={{
+              borderRadius: "50%",
+              width: "50px",
+              height: "50px",
+              overflow: "hidden",
+            }}
           />
         </TableCell>
         <TableCell className="tableCell">{item.name}</TableCell>
@@ -315,6 +425,7 @@ function Row({
             paddingBottom: 0,
             paddingTop: 0,
             backgroundColor: "#F3F4F6",
+            backgroundColor: themeMode === "dark" ? "black" : "#F3F4F6",
           }}
           colSpan={7}
         >
@@ -323,24 +434,88 @@ function Row({
               <Table size="small" aria-label="variants">
                 <TableHead>
                   <TableRow>
-                    <TableCell>Color</TableCell>
-                    <TableCell>Size</TableCell>
-                    <TableCell align="right">Quantity</TableCell>
-                    <TableCell align="right">Price</TableCell>
-                    <TableCell align="right">#</TableCell>
+                    <TableCell
+                      style={{
+                        color: themeMode === "dark" ? "white" : "black",
+                      }}
+                    >
+                      Color
+                    </TableCell>
+                    <TableCell
+                      style={{
+                        color: themeMode === "dark" ? "white" : "black",
+                      }}
+                    >
+                      Size
+                    </TableCell>
+                    <TableCell
+                      align="right"
+                      style={{
+                        color: themeMode === "dark" ? "white" : "black",
+                      }}
+                    >
+                      Quantity
+                    </TableCell>
+                    <TableCell
+                      align="right"
+                      style={{
+                        color: themeMode === "dark" ? "white" : "black",
+                      }}
+                    >
+                      Price
+                    </TableCell>
+                    <TableCell
+                      align="right"
+                      style={{
+                        color: themeMode === "dark" ? "white" : "black",
+                      }}
+                    >
+                      #
+                    </TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {item.variants &&
                     item.variants.map((variant) => (
                       <TableRow key={variant._id}>
-                        <TableCell component="th" scope="row">
+                        <TableCell
+                          component="th"
+                          scope="row"
+                          style={{
+                            color: themeMode === "dark" ? "white" : "black",
+                          }}
+                        >
                           {variant.color}
                         </TableCell>
-                        <TableCell>{variant.size}</TableCell>
-                        <TableCell align="right">{variant.quantity}</TableCell>
-                        <TableCell align="right">{variant.price}</TableCell>
-                        <TableCell align="right">
+                        <TableCell
+                          style={{
+                            color: themeMode === "dark" ? "white" : "black",
+                          }}
+                        >
+                          {variant.size}
+                        </TableCell>
+                        <TableCell
+                          align="right"
+                          style={{
+                            color: themeMode === "dark" ? "white" : "black",
+                          }}
+                        >
+                          {variant.quantity}
+                        </TableCell>
+                        <TableCell
+                          align="right"
+                          style={{
+                            color: themeMode === "dark" ? "white" : "black",
+                          }}
+                        >
+                          {variant.price}
+                        </TableCell>
+                        <TableCell
+                          align="right"
+                          style={{
+                            color: themeMode === "dark" ? "white" : "black",
+                          }}
+                        >
                           <IconButton
                             onClick={() => deleteVariant(item._id, variant._id)}
                           >
