@@ -85,6 +85,7 @@ export default function Dashboard({ themeMode }) {
       // sx={{ maxWidth: "800px", margin: "0 auto" }}
     >
       <Box display="flex" justifyContent="space-between" mb={2}>
+
         <Box
           className={`dashboardTopContainer ${themeMode}`}
           sx={{ backgroundColor: "#A908AC", color: "white" }}
@@ -127,6 +128,8 @@ export default function Dashboard({ themeMode }) {
           ></ListAltIcon>
           <Typography variant="h5">Categories: {categories}</Typography>
         </Box>
+
+
       </Box>
       <Divider sx={{ marginBottom: "1rem" }}></Divider>
       <div style={{ display: "flex", width: "100%", justifyContent: "center" }}>
