@@ -171,14 +171,6 @@ input {
   transition: 0.5s;
 }
 
-.dark {
-  background-color: #333;
-  color: #fff;
-}
-.light {
-  background-color: #fff;
-  color: #333;
-}
 
 .bodyContent {
   display: flex;
@@ -236,7 +228,7 @@ input {
   margin-left: 20px;
   height: 50px;
   border-bottom: 1px dashed #9ca3af;
-  background-color: white;
+
 }
 
 .tab-panel {
@@ -392,7 +384,7 @@ form.login {
 
 .createProductlistElement :hover {
   background-color: #e7ebf0;
-
+}
 .ContainerForm {
   display: flex;
   justify-content: center;
@@ -481,4 +473,13 @@ form.login {
     transform: rotate(360deg);
   }
 
+}
+
+.dark {
+  background-color: #333;
+  color: #fff;
+}
+.light {
+  background-color: #fff;
+  color: #333;
 }
