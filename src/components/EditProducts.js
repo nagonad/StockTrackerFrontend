@@ -21,18 +21,46 @@ import SearchIcon from "@mui/icons-material/Search";
 import IconButton from "@mui/material/IconButton";
 import Collapse from "@mui/material/Collapse";
 
+import { BsExclamationCircle } from "react-icons/bs";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
-import { BiEdit } from "react-icons/bi";
+import { BiEdit, BiCheckCircle } from "react-icons/bi";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import { RxCross1 } from "react-icons/rx";
 import PaginationDashboard from "./PaginationDashboard";
 import CreateProduct from "./CreateProduct";
+import EditProductDialog from "./EditProductDialog";
+import _ from "lodash";
 
 export default function EditProducts({ themeMode }) {
   const [resetCollapse, setResetCollapse] = useState(false);
   const [stockInfo, setStockInfo] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [isFocused, setIsFocused] = useState(false);
+  const [categories, setCategories] = useState([]);
+
+  const [selectedProduct, setSelectedProduct] = useState({});
+
+  const [dialogOpen, setDialogOpen] = React.useState(false);
+
+  const [error, setError] = React.useState("");
+  const [message, setMessage] = React.useState("");
+
+  const handleMessage = (msg) => {
+    setError("");
+    setMessage(msg);
+  };
+  const handleError = (msg) => {
+    setMessage("");
+    setError(msg);
+  };
+
+  const handleClickOpen = () => {
+    setDialogOpen(true);
+  };
+
+  const handleClose = () => {
+    setDialogOpen(false);
+  };
 
   const closeDropdowns = () => {
     setResetCollapse((prev) => !prev);
@@ -60,6 +88,7 @@ export default function EditProducts({ themeMode }) {
         console.error("Data from server is not an array:", response.data);
       } else {
         setStockInfo(response.data);
+        setCategories(_.uniq(_.map(response.data, "category")));
       }
     } catch (error) {
       console.error("Failed to fetch stockInfo", error);
@@ -81,6 +110,7 @@ export default function EditProducts({ themeMode }) {
 
   const deleteVariant = async (id, variantId) => {
     try {
+      console.log(variantId);
       const response = await axios.delete(
         `https://stocktrackerbackend.onrender.com/stockinfo/variant/${id}/${variantId}`
       );
@@ -97,6 +127,16 @@ export default function EditProducts({ themeMode }) {
 
   return (
     <>
+      <EditProductDialog
+        handleError={handleError}
+        handleMessage={handleMessage}
+        setSelectedProduct={setSelectedProduct}
+        categories={categories}
+        selectedProduct={selectedProduct}
+        open={dialogOpen}
+        handleClickOpen={handleClickOpen}
+        handleClose={handleClose}
+      ></EditProductDialog>
       <Tabs className={`tabsHeader ${themeMode}`}>
         <TabList className={`tablist ${themeMode}`}>
           <Tab
@@ -110,6 +150,39 @@ export default function EditProducts({ themeMode }) {
           <Tab style={{ height: "100%" }}>Create new Product</Tab>
         </TabList>
         <TabPanel>
+          <div
+            className="createproductnotificationbox editProductMainMessageContainer"
+            style={
+              message
+                ? { backgroundColor: "#EAF2EA" }
+                : error
+                ? { backgroundColor: "#FFEDD5" }
+                : { backgroundColor: "inherit" }
+            }
+          >
+            <Box
+              sx={{
+                fontSize: "24px",
+                display: message ? "flex" : "none",
+              }}
+            >
+              <BiCheckCircle
+                style={{ color: "#2E7D32", marginRight: "0.5rem" }}
+              ></BiCheckCircle>
+              <Typography>{message}</Typography>
+            </Box>
+            <Box
+              sx={{
+                fontSize: "24px",
+                display: error ? "flex" : "none",
+              }}
+            >
+              <BsExclamationCircle
+                style={{ color: "#D32F2F", marginRight: "0.5rem" }}
+              ></BsExclamationCircle>
+              <Typography>{error}</Typography>
+            </Box>
+          </div>
           <Box marginX={2} className={themeMode}>
             <div
               style={{
@@ -224,6 +297,8 @@ export default function EditProducts({ themeMode }) {
                     .slice(page * rowsPerPage, (page + 1) * rowsPerPage)
                     .map((item) => (
                       <Row
+                        setSelectedProduct={setSelectedProduct}
+                        handleClickOpen={handleClickOpen}
                         deleteVariant={deleteVariant}
                         deleteProduct={deleteProduct}
                         key={item._id}
@@ -253,7 +328,15 @@ export default function EditProducts({ themeMode }) {
   );
 }
 
-function Row({ item, resetCollapse, deleteProduct, deleteVariant, themeMode }) {
+function Row({
+  item,
+  resetCollapse,
+  deleteProduct,
+  deleteVariant,
+  themeMode,
+  handleClickOpen,
+  setSelectedProduct,
+}) {
   const { row } = item;
   const [open, setOpen] = React.useState(false);
 
@@ -317,7 +400,12 @@ function Row({ item, resetCollapse, deleteProduct, deleteVariant, themeMode }) {
           {item.totalPrice}
         </TableCell>
         <TableCell className="tableCell" align="right">
-          <IconButton>
+          <IconButton
+            onClick={() => {
+              setSelectedProduct(item);
+              handleClickOpen();
+            }}
+          >
             <BiEdit style={{ color: "#5686E1", fontSize: "30px" }}></BiEdit>
           </IconButton>
         </TableCell>
