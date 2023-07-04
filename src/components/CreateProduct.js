@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import _ from "lodash";
+
 import {
   Typography,
   Box,
@@ -255,7 +256,7 @@ export default function CreateProduct() {
           </Box>
         </div>
         <Typography>Name of the Product</Typography>
-        <Box boxShadow={1} className="createProductBox">
+        <Box className="createProductBox">
           <TextField
             sx={{ width: "50%", paddingRight: "1rem" }}
             InputLabelProps={{ shrink: false }}
@@ -267,7 +268,7 @@ export default function CreateProduct() {
         </Box>
 
         <Typography sx={{ marginTop: "2rem" }}>Parent/Sub Item</Typography>
-        <Box boxShadow={1} className="createProductBox">
+        <Box className="createProductBox">
           <FormControl sx={{ width: "50%", paddingRight: "1rem" }}>
             <Select
               variant="standard"
@@ -296,7 +297,7 @@ export default function CreateProduct() {
           )}
         </Box>
         <Typography sx={{ marginTop: "2rem" }}>Category</Typography>
-        <Box boxShadow={1} className="createProductBox">
+        <Box className="createProductBox">
           <FormControl sx={{ width: "50%" }}>
             <Select
               variant="standard"
@@ -315,7 +316,7 @@ export default function CreateProduct() {
         {!isParentItem && (
           <>
             <Typography sx={{ marginTop: "2rem" }}>Quantity/Price</Typography>
-            <Box boxShadow={1} className="createProductBox">
+            <Box className="createProductBox">
               <FormControl sx={{ width: "50%", paddingRight: "1rem" }}>
                 <TextField
                   type="number"
@@ -338,16 +339,13 @@ export default function CreateProduct() {
               </FormControl>
             </Box>
             <Typography sx={{ marginTop: "2rem" }}>Size/Color</Typography>
-            <Box boxShadow={1} className="createProductBox">
+            <Box className="createProductBox">
               <FormControl sx={{ width: "50%", paddingRight: "1rem" }}>
                 <TextField
                   value={size}
                   onChange={(e) => setSize(e.target.value)}
                   label="Size"
                   variant="standard"
-                  //   InputProps={{
-                  //     endAdornment: <Button variant="contained">Add</Button>,
-                  //   }}
                 />
               </FormControl>
               <FormControl sx={{ width: "50%" }}>
@@ -362,11 +360,7 @@ export default function CreateProduct() {
             <Typography sx={{ marginTop: "2rem" }}>
               Technical Specifications
             </Typography>
-            <Box
-              boxShadow={1}
-              sx={{ width: "100%" }}
-              className="createProductBox"
-            >
+            <Box sx={{ width: "100%" }} className="createProductBox">
               <div style={{ display: "flex" }}>
                 <TextField
                   sx={{ flex: "1", marginRight: "1rem" }}
@@ -416,11 +410,7 @@ export default function CreateProduct() {
               </div>
             </Box>
             <Typography sx={{ marginTop: "2rem" }}>Features</Typography>
-            <Box
-              boxShadow={1}
-              sx={{ width: "100%" }}
-              className="createProductBox"
-            >
+            <Box sx={{ width: "100%" }} className="createProductBox">
               <div style={{ display: "flex" }}>
                 <TextField
                   sx={{ flex: "1", marginRight: "1rem" }}
@@ -465,7 +455,7 @@ export default function CreateProduct() {
               </div>
             </Box>
             <Typography sx={{ marginTop: "2rem" }}>Description</Typography>
-            <Box boxShadow={1} className="createProductBox">
+            <Box className="createProductBox">
               <TextField
                 sx={{ width: "100%", paddingRight: "1rem" }}
                 variant="standard"
@@ -477,11 +467,7 @@ export default function CreateProduct() {
           </>
         )}
         <Typography sx={{ marginTop: "2rem" }}>Upload Image</Typography>
-        <Box
-          boxShadow={1}
-          className="createProductBox"
-          sx={{ display: "flex" }}
-        >
+        <Box className="createProductBox" sx={{ display: "flex" }}>
           <div style={{ flex: "1" }}>
             {isParentItem ? (
               image && (

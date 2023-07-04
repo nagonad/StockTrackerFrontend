@@ -27,12 +27,27 @@ import { RiDeleteBin6Fill } from "react-icons/ri";
 import { RxCross1 } from "react-icons/rx";
 import PaginationDashboard from "./PaginationDashboard";
 import CreateProduct from "./CreateProduct";
+import EditProductDialog from "./EditProductDialog";
+import _ from "lodash";
 
 export default function EditProducts() {
   const [resetCollapse, setResetCollapse] = useState(false);
   const [stockInfo, setStockInfo] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [isFocused, setIsFocused] = useState(false);
+  const [categories, setCategories] = useState({});
+
+  const [selectedProduct, setSelectedProduct] = useState({});
+
+  const [dialogOpen, setDialogOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setDialogOpen(true);
+  };
+
+  const handleClose = () => {
+    setDialogOpen(false);
+  };
 
   const closeDropdowns = () => {
     setResetCollapse((prev) => !prev);
@@ -60,6 +75,7 @@ export default function EditProducts() {
         console.error("Data from server is not an array:", response.data);
       } else {
         setStockInfo(response.data);
+        setCategories(_.uniq(_.map(response.data, "category")));
       }
     } catch (error) {
       console.error("Failed to fetch stockInfo", error);
@@ -81,8 +97,9 @@ export default function EditProducts() {
 
   const deleteVariant = async (id, variantId) => {
     try {
+      console.log(variantId);
       const response = await axios.delete(
-        `https://stocktrackerbackend.onrender.com/stockinfo/variant/${id}/${variantId}`
+        `http://localhost:8080/stockinfo/variant/${id}/${variantId}`
       );
       fetchStockInfo();
       console.log(response);
@@ -97,6 +114,13 @@ export default function EditProducts() {
 
   return (
     <>
+      <EditProductDialog
+        categories={categories}
+        selectedProduct={selectedProduct}
+        open={dialogOpen}
+        handleClickOpen={handleClickOpen}
+        handleClose={handleClose}
+      ></EditProductDialog>
       <Tabs className="tabsHeader">
         <TabList className="tablist">
           <Tab
@@ -179,6 +203,8 @@ export default function EditProducts() {
                     .slice(page * rowsPerPage, (page + 1) * rowsPerPage)
                     .map((item) => (
                       <Row
+                        setSelectedProduct={setSelectedProduct}
+                        handleClickOpen={handleClickOpen}
                         deleteVariant={deleteVariant}
                         deleteProduct={deleteProduct}
                         key={item._id}
@@ -206,7 +232,14 @@ export default function EditProducts() {
   );
 }
 
-function Row({ item, resetCollapse, deleteProduct, deleteVariant }) {
+function Row({
+  item,
+  resetCollapse,
+  deleteProduct,
+  deleteVariant,
+  handleClickOpen,
+  setSelectedProduct,
+}) {
   const { row } = item;
   const [open, setOpen] = React.useState(false);
 
@@ -257,7 +290,12 @@ function Row({ item, resetCollapse, deleteProduct, deleteVariant }) {
           {item.totalPrice}
         </TableCell>
         <TableCell className="tableCell" align="right">
-          <IconButton>
+          <IconButton
+            onClick={() => {
+              setSelectedProduct(item);
+              handleClickOpen();
+            }}
+          >
             <BiEdit style={{ color: "#5686E1", fontSize: "30px" }}></BiEdit>
           </IconButton>
         </TableCell>
