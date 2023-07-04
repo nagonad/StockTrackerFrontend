@@ -237,7 +237,6 @@ export default function Dashboard({ themeMode }) {
         page={page}
         setPage={setPage}
         totalPages={totalPages}
-        themeMode={themeMode}
       />
     </Box>
   );
@@ -315,7 +314,7 @@ function Row({ item, resetCollapse, themeMode }) {
           style={{
             paddingBottom: 0,
             paddingTop: 0,
-            backgroundColor: "#F3F4F6",
+            // backgroundColor: "#F3F4F6",
             backgroundColor: themeMode === "dark" ? "black" : "#F3F4F6",
           }}
           colSpan={7}
