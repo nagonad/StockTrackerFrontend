@@ -241,6 +241,7 @@ export default function EditProducts({ themeMode }) {
               page={page}
               setPage={setPage}
               totalPages={totalPages}
+              themeMode={themeMode}
             />
           </Box>
         </TabPanel>

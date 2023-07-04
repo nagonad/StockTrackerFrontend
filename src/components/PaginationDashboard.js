@@ -7,7 +7,13 @@ import {
   NavigateNext as NextIcon,
 } from "@material-ui/icons";
 
-const PaginationDashboard = ({ page, setPage, totalPages, closeDropdowns }) => {
+const PaginationDashboard = ({
+  page,
+  setPage,
+  totalPages,
+  closeDropdowns,
+  themeMode,
+}) => {
   const handleNext = () => {
     closeDropdowns();
     if (page < totalPages - 1) {
@@ -28,6 +34,10 @@ const PaginationDashboard = ({ page, setPage, totalPages, closeDropdowns }) => {
         startIcon={<PreviousIcon />}
         onClick={handlePrevious}
         disabled={page === 0}
+        style={{
+          backgroundColor: themeMode === "dark" ? "black" : "",
+          color: themeMode === "dark" ? "white" : "",
+        }}
       >
         Previous
       </Button>
@@ -35,6 +45,10 @@ const PaginationDashboard = ({ page, setPage, totalPages, closeDropdowns }) => {
         endIcon={<NextIcon />}
         onClick={handleNext}
         disabled={page === totalPages - 1}
+        style={{
+          backgroundColor: themeMode === "dark" ? "black" : "",
+          color: themeMode === "dark" ? "white" : "",
+        }}
       >
         Next
       </Button>
