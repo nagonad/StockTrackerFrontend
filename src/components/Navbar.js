@@ -67,7 +67,7 @@ export default function Navbar({
                 aria-haspopup="true"
                 aria-expanded={open ? "true" : undefined}
               >
-                <Avatar sx={{ width: 40, height: 40 }}>
+                <Avatar sx={{ width: "40px", height: "40px" }}>
                   {user.username.charAt(0).toUpperCase()}
                 </Avatar>
               </IconButton>

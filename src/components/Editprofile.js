@@ -61,7 +61,7 @@ export default function Editprofile({ setUser, user, themeMode }) {
         <div className="tabs">
           <TabPanel className="tab-panel">
             <div className="user-info">
-              <label className={`label ${themeMode}`}>User Name</label>
+              <label className={`label ${themeMode}`}>User name</label>
               <div className={`value ${themeMode}`}>{user.username}</div>
             </div>
             <div className="user-info">

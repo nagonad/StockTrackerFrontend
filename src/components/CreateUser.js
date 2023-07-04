@@ -40,28 +40,31 @@ export default function CreateUser({ themeMode, setUser }) {
     <form className="signup" onSubmit={handleSubmit}>
       {/* <h3>Create User</h3> */}
 
-      <label>Username: </label>
+      <label className={`label ${themeMode}`}>User name</label>
       <input
         type="text" // Corrected the input type to "text"
         onChange={(e) => setUsername(e.target.value)} // Changed setEmail to setUsername for the username field
         value={username}
         className={`value ${themeMode}`}
+        placeholder="User name"
       />
 
-      <label>Email: </label>
+      <label className={`label ${themeMode}`}>Email</label>
       <input
         type="email"
         onChange={(e) => setEmail(e.target.value)} // Changed setEmail to setEmail for the email field
         value={email}
         className={`value ${themeMode}`}
+        placeholder="Email"
       />
 
-      <label>Password: </label>
+      <label className={`label ${themeMode}`}>Password</label>
       <input
         type="password"
         onChange={(e) => setPassword(e.target.value)}
         value={password}
         className={`value ${themeMode}`}
+        placeholder="Password"
       />
 
       <button class="submitcreateuser" type="submit">
