@@ -240,6 +240,7 @@ export default function Dashboard({ themeMode }) {
         page={page}
         setPage={setPage}
         totalPages={totalPages}
+        themeMode={themeMode}
       />
     </Box>
   );
