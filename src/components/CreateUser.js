@@ -13,11 +13,14 @@ export default function CreateUser({ themeMode, setUser }) {
     setIsLoading(true);
     setError(null);
 
-    const response = await fetch("http://localhost:8080/user/signup", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password, username }),
-    });
+    const response = await fetch(
+      "https://stocktrackerbackend.onrender.com/user/signup",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password, username }),
+      }
+    );
 
     const data = await response.json();
 
