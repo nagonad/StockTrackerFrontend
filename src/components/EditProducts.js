@@ -24,10 +24,11 @@ import Collapse from "@mui/material/Collapse";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import { BiEdit } from "react-icons/bi";
 import { RiDeleteBin6Fill } from "react-icons/ri";
+import { RxCross1 } from "react-icons/rx";
 import PaginationDashboard from "./PaginationDashboard";
 import CreateProduct from "./CreateProduct";
 
-export default function EditProducts() {
+export default function EditProducts({ themeMode }) {
   const [resetCollapse, setResetCollapse] = useState(false);
   const [stockInfo, setStockInfo] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -50,33 +51,58 @@ export default function EditProducts() {
   );
   const totalPages = Math.ceil(filteredStockInfo.length / rowsPerPage);
 
-  useEffect(() => {
-    const fetchStockInfo = async () => {
-      try {
-        const response = await axios.get(
-          "https://stocktrackerbackend.onrender.com/stockinfo"
-        );
-        console.log(response);
-        if (!Array.isArray(response.data)) {
-          console.error("Data from server is not an array:", response.data);
-        } else {
-          setStockInfo(response.data);
-        }
-      } catch (error) {
-        console.error("Failed to fetch stockInfo", error);
+  const fetchStockInfo = async () => {
+    try {
+      const response = await axios.get(
+        "https://stocktrackerbackend.onrender.com/stockinfo"
+      );
+      if (!Array.isArray(response.data)) {
+        console.error("Data from server is not an array:", response.data);
+      } else {
+        setStockInfo(response.data);
       }
-    };
+    } catch (error) {
+      console.error("Failed to fetch stockInfo", error);
+    }
+  };
 
+  const deleteProduct = async (id) => {
+    console.log(id);
+    try {
+      const response = await axios.delete(
+        `https://stocktrackerbackend.onrender.com/stockinfo/${id}`
+      );
+      fetchStockInfo();
+      console.log(response);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  const deleteVariant = async (id, variantId) => {
+    try {
+      const response = await axios.delete(
+        `https://stocktrackerbackend.onrender.com/stockinfo/variant/${id}/${variantId}`
+      );
+      fetchStockInfo();
+      console.log(response);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  useEffect(() => {
     fetchStockInfo();
   }, []);
+
   return (
     <>
-      <Tabs className="tabsHeader">
-        <TabList className="tablist">
+      <Tabs className={`tabsHeader ${themeMode}`}>
+        <TabList className={`tablist ${themeMode}`}>
           <Tab
             style={{
-              marginLeft: "1rem",
               height: "100%",
+              Bottom: "none",
             }}
           >
             Edit Products
@@ -84,7 +110,7 @@ export default function EditProducts() {
           <Tab style={{ height: "100%" }}>Create new Product</Tab>
         </TabList>
         <TabPanel>
-          <Box marginX={2}>
+          <Box marginX={2} className={themeMode}>
             <div
               style={{
                 display: "flex",
@@ -102,6 +128,7 @@ export default function EditProducts() {
                       style={{
                         display: "flex",
                         color: "#1976D2",
+                        color: themeMode === "dark" ? "white" : "black",
                       }}
                     >
                       <SearchIcon sx={{ marginRight: "0.5rem" }}></SearchIcon>
@@ -118,41 +145,92 @@ export default function EditProducts() {
                   marginBottom: "1rem",
                   maxWidth: "400px",
                   width: "100%",
+                  border: themeMode === "dark" ? "1px solid white" : "",
+                  borderRadius: "5px",
                 }}
               />
             </div>
-            <TableContainer component={Paper}>
+            <TableContainer
+              component={Paper}
+              className={`TableContainer ${themeMode}`}
+            >
               <Table
                 sx={{
                   borderCollapse: "separate",
                 }}
               >
-                <TableHead sx={{ backgroundColor: "#F3F4F6" }}>
-                  <TableRow>
+                <TableHead
+                  className={`TableHead ${themeMode}`}
+                  sx={{ backgroundColor: "#F3F4F6" }}
+                >
+                  <TableRow className={`TableRow ${themeMode}`}>
                     <TableCell></TableCell>
-                    <TableCell sx={{ fontWeight: "600" }} align="center">
+                    <TableCell
+                      sx={{ fontWeight: "600" }}
+                      align="center"
+                      className={`TableCell ${themeMode}`}
+                    >
                       Image
                     </TableCell>
-                    <TableCell sx={{ fontWeight: "600" }}>Name</TableCell>
-                    <TableCell sx={{ fontWeight: "600" }}>Category</TableCell>
-                    <TableCell sx={{ fontWeight: "600" }} align="right">
+                    <TableCell
+                      className={`TableCell ${themeMode}`}
+                      sx={{ fontWeight: "600" }}
+                    >
+                      Name
+                    </TableCell>
+                    <TableCell
+                      className={`TableCell ${themeMode}`}
+                      sx={{ fontWeight: "600" }}
+                    >
+                      Category
+                    </TableCell>
+                    <TableCell
+                      className={`TableCell ${themeMode}`}
+                      sx={{ fontWeight: "600" }}
+                      align="right"
+                    >
                       Quantity
                     </TableCell>
-                    <TableCell sx={{ fontWeight: "600" }} align="right">
+                    <TableCell
+                      className={`TableCell ${themeMode}`}
+                      sx={{ fontWeight: "600" }}
+                      align="right"
+                    >
                       Price
                     </TableCell>
-                    <TableCell sx={{ fontWeight: "600" }} align="right">
+                    <TableCell
+                      className={`TableCell ${themeMode}`}
+                      sx={{ fontWeight: "600" }}
+                      align="right"
+                    >
                       Total Price
                     </TableCell>
-                    <TableCell align="right">#</TableCell>
-                    <TableCell align="right">#</TableCell>
+                    <TableCell
+                      className={`TableCell ${themeMode}`}
+                      align="right"
+                    >
+                      #
+                    </TableCell>
+                    <TableCell
+                      className={`TableCell ${themeMode}`}
+                      align="right"
+                    >
+                      #
+                    </TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {filteredStockInfo
                     .slice(page * rowsPerPage, (page + 1) * rowsPerPage)
                     .map((item) => (
-                      <Row item={item} resetCollapse={resetCollapse}></Row>
+                      <Row
+                        deleteVariant={deleteVariant}
+                        deleteProduct={deleteProduct}
+                        key={item._id}
+                        item={item}
+                        resetCollapse={resetCollapse}
+                        themeMode={themeMode}
+                      ></Row>
                     ))}
                 </TableBody>
               </Table>
@@ -167,28 +245,28 @@ export default function EditProducts() {
           </Box>
         </TabPanel>
         <TabPanel>
-          <CreateProduct />
+          <CreateProduct themeMode={themeMode} />
         </TabPanel>
       </Tabs>
     </>
   );
 }
 
-function Row({ item, resetCollapse }) {
+function Row({ item, resetCollapse, deleteProduct, deleteVariant, themeMode }) {
   const { row } = item;
   const [open, setOpen] = React.useState(false);
-  //localhost:3000/editprofile
-  http: useEffect(() => {
+
+  useEffect(() => {
     setOpen(false);
   }, [resetCollapse]);
 
   return (
     <React.Fragment>
       <TableRow
-        key={item.id}
+        key={item._id}
         sx={{
           "& > *": { borderBottom: "unset" },
-          backgroundColor: open ? "#E5E7EB" : "inherit",
+          backgroundColor: open ? "#black" : "inherit",
         }}
       >
         <TableCell>
@@ -197,7 +275,15 @@ function Row({ item, resetCollapse }) {
             size="small"
             onClick={() => setOpen(!open)}
           >
-            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+            {open ? (
+              <KeyboardArrowUpIcon
+                sx={{ color: themeMode === "dark" ? "white" : "" }}
+              />
+            ) : (
+              <KeyboardArrowDownIcon
+                sx={{ color: themeMode === "dark" ? "white" : "" }}
+              />
+            )}
           </IconButton>
         </TableCell>
         <TableCell
@@ -209,7 +295,12 @@ function Row({ item, resetCollapse }) {
           <img
             src={item.imageUrl}
             alt="Product"
-            style={{ width: "40px", height: "40px" }}
+            style={{
+              borderRadius: "50%",
+              width: "50px",
+              height: "50px",
+              overflow: "hidden",
+            }}
           />
         </TableCell>
         <TableCell className="tableCell">{item.name}</TableCell>
@@ -232,6 +323,7 @@ function Row({ item, resetCollapse }) {
         <TableCell className="tableCell" align="right">
           <IconButton>
             <RiDeleteBin6Fill
+              onClick={() => deleteProduct(item._id)}
               style={{ color: "#EB3223", fontSize: "30px" }}
             ></RiDeleteBin6Fill>
           </IconButton>
@@ -244,6 +336,7 @@ function Row({ item, resetCollapse }) {
             paddingBottom: 0,
             paddingTop: 0,
             backgroundColor: "#F3F4F6",
+            backgroundColor: themeMode === "dark" ? "black" : "#F3F4F6",
           }}
           colSpan={7}
         >
@@ -252,22 +345,94 @@ function Row({ item, resetCollapse }) {
               <Table size="small" aria-label="variants">
                 <TableHead>
                   <TableRow>
-                    <TableCell>Color</TableCell>
-                    <TableCell>Size</TableCell>
-                    <TableCell align="right">Quantity</TableCell>
-                    <TableCell align="right">Price</TableCell>
+                    <TableCell
+                      style={{
+                        color: themeMode === "dark" ? "white" : "black",
+                      }}
+                    >
+                      Color
+                    </TableCell>
+                    <TableCell
+                      style={{
+                        color: themeMode === "dark" ? "white" : "black",
+                      }}
+                    >
+                      Size
+                    </TableCell>
+                    <TableCell
+                      align="right"
+                      style={{
+                        color: themeMode === "dark" ? "white" : "black",
+                      }}
+                    >
+                      Quantity
+                    </TableCell>
+                    <TableCell
+                      align="right"
+                      style={{
+                        color: themeMode === "dark" ? "white" : "black",
+                      }}
+                    >
+                      Price
+                    </TableCell>
+                    <TableCell
+                      align="right"
+                      style={{
+                        color: themeMode === "dark" ? "white" : "black",
+                      }}
+                    >
+                      #
+                    </TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {item.variants &&
                     item.variants.map((variant) => (
-                      <TableRow key={variant.color + variant.size}>
-                        <TableCell component="th" scope="row">
+                      <TableRow key={variant._id}>
+                        <TableCell
+                          component="th"
+                          scope="row"
+                          style={{
+                            color: themeMode === "dark" ? "white" : "black",
+                          }}
+                        >
                           {variant.color}
                         </TableCell>
-                        <TableCell>{variant.size}</TableCell>
-                        <TableCell align="right">{variant.quantity}</TableCell>
-                        <TableCell align="right">{variant.price}</TableCell>
+                        <TableCell
+                          style={{
+                            color: themeMode === "dark" ? "white" : "black",
+                          }}
+                        >
+                          {variant.size}
+                        </TableCell>
+                        <TableCell
+                          align="right"
+                          style={{
+                            color: themeMode === "dark" ? "white" : "black",
+                          }}
+                        >
+                          {variant.quantity}
+                        </TableCell>
+                        <TableCell
+                          align="right"
+                          style={{
+                            color: themeMode === "dark" ? "white" : "black",
+                          }}
+                        >
+                          {variant.price}
+                        </TableCell>
+                        <TableCell
+                          align="right"
+                          style={{
+                            color: themeMode === "dark" ? "white" : "black",
+                          }}
+                        >
+                          <IconButton
+                            onClick={() => deleteVariant(item._id, variant._id)}
+                          >
+                            <RxCross1></RxCross1>
+                          </IconButton>
+                        </TableCell>
                       </TableRow>
                     ))}
                 </TableBody>

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Create } from "@material-ui/icons";
 import CreateUser from "./CreateUser";
 
-export default function Editprofile({ setUser, user }) {
+export default function Editprofile({ setUser, user, themeMode }) {
   const [currentpassword, setCurrentpassword] = useState("");
   const [newpassword, setNewpassword] = useState("");
   const [error, setError] = useState(null);
@@ -48,10 +48,9 @@ export default function Editprofile({ setUser, user }) {
   return (
     <div className="Editprofile">
       <Tabs className="tabsHeader">
-        <TabList className="tablist">
+        <TabList className={`tablist ${themeMode}`}>
           <Tab
             style={{
-              marginLeft: "1rem",
               height: "100%",
             }}
           >
@@ -62,22 +61,23 @@ export default function Editprofile({ setUser, user }) {
         <div className="tabs">
           <TabPanel className="tab-panel">
             <div className="user-info">
-              <label className="label">User Name</label>
-              <div className="value">{user.username}</div>
+              <label className={`label ${themeMode}`}>User Name</label>
+              <div className={`value ${themeMode}`}>{user.username}</div>
             </div>
             <div className="user-info">
-              <label className="label">Email</label>
-              <div className="value">{user.userEmail}</div>
+              <label className={`label ${themeMode}`}>Email</label>
+              <div className={`value ${themeMode}`}>{user.userEmail}</div>
             </div>
-            <form onSubmit={handleSubmit} className="editform">
-              <label className="label">Change password</label>
+            <form onSubmit={handleSubmit} className="editform loginform">
+              <label className={`label ${themeMode}`}>Change password</label>
               <input
                 onChange={(e) => setCurrentpassword(e.target.value)}
                 placeholder="Current password"
                 type="password"
                 name="password"
                 value={currentpassword}
-                className="editinput"
+                className={`panel ${themeMode}`}
+                id="password"
               />
               <input
                 onChange={(e) => setNewpassword(e.target.value)}
@@ -85,7 +85,8 @@ export default function Editprofile({ setUser, user }) {
                 type="password"
                 name="password"
                 value={newpassword}
-                className="editinput"
+                className={`panel ${themeMode}`}
+                id="password"
               />
 
               <input type="submit" value="Submit" className="editsubmit" />
@@ -95,7 +96,7 @@ export default function Editprofile({ setUser, user }) {
         </div>
 
         <TabPanel>
-          <CreateUser setUser={setUser} />
+          <CreateUser themeMode={themeMode} setUser={setUser} />
         </TabPanel>
       </Tabs>
     </div>
