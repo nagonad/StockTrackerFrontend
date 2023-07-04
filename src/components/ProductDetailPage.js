@@ -17,7 +17,7 @@ import {
 } from "@mui/material";
 import { NavigateBefore, NavigateNext } from "@mui/icons-material";
 
-function ProductDetailPage() {
+function ProductDetailPage({ themeMode }) {
   const [product, setProduct] = useState(null);
   const [selectedVariant, setSelectedVariant] = useState(null);
   const [error, setError] = useState(null);
@@ -159,49 +159,69 @@ function ProductDetailPage() {
           </Grid>
         </Grid>
 
-        {/* Variant details */}
-        <Grid item xs={12} md={6}>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <Paper elevation={3} sx={{ p: 3, bgcolor: "#F8F8F8", borderRadius: "8px", fontFamily: "Arial" }}>
-                <Typography variant="subtitle1" gutterBottom sx={{ color: "#444", marginBottom: 1 }}>
-                  Color: {selectedVariant.color}
-                </Typography>
-                <Typography variant="subtitle1" gutterBottom sx={{ marginBottom: 1 }}>
-                  Size: {selectedVariant.size}
-                </Typography>
-                <Typography variant="subtitle1" gutterBottom sx={{ marginBottom: 1 }}>
-                  Description: {selectedVariant.description}
-                </Typography>
-              </Paper>
-            </Grid>
-            <Grid item xs={12}>
-              <Paper elevation={3} sx={{ p: 3, bgcolor: "#F8F8F8", borderRadius: "8px", fontFamily: "Arial" }}>
-                <Typography variant="subtitle1" gutterBottom sx={{ marginBottom: 1 }}>
-                  Technical Specifications:
-                </Typography>
-                {Array.isArray(selectedVariant.technicalSpecifications) ? (
-                  <List>
-                    {selectedVariant.technicalSpecifications.map((spec, index) => (
-                      <ListItem key={index}>{spec}</ListItem>
-                    ))}
-                  </List>
-                ) : (
-                  <Typography>{selectedVariant.technicalSpecifications}</Typography>
-                )}
-                <Typography variant="subtitle1" gutterBottom sx={{ marginBottom: 1 }}>
-                  Features:
-                </Typography>
-                {Array.isArray(selectedVariant.features) ? (
-                  <List>
-                    {selectedVariant.features.map((feature, index) => (
-                      <ListItem key={index}>{feature}</ListItem>
-                    ))}
-                  </List>
-                ) : (
-                  <Typography>{selectedVariant.features}</Typography>
-                )}
-              </Paper>
+
+          {/* Render variant details */}
+          <Grid item xs={12} sm={6}>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <Paper
+                  elevation={3}
+                  sx={{ p: 3, bgcolor: "#F8F8F8", borderRadius: "8px" }}
+                >
+                  <Typography
+                    variant="h6"
+                    sx={{ color: "#444", marginBottom: 1 }}
+                  >
+                    Color: {selectedVariant.color}
+                  </Typography>
+                  <Typography variant="h6" sx={{ marginBottom: 1 }}>
+                    Size: {selectedVariant.size}
+                  </Typography>
+                  <Typography variant="h6" sx={{ marginBottom: 1 }}>
+                    Description: {selectedVariant.description}
+                  </Typography>
+                </Paper>
+              </Grid>
+              <Grid item xs={12}>
+                <Paper
+                  elevation={3}
+                  sx={{ p: 3, bgcolor: "#F8F8F8", borderRadius: "8px" }}
+                >
+                  <Typography
+                    variant="h6"
+                    className={`createProductBox ${themeMode}`}
+                    sx={{ marginBottom: 1 }}
+                  >
+                    Technical Specifications:
+                  </Typography>
+                  {Array.isArray(selectedVariant.technicalSpecifications) ? (
+                    <List>
+                      {selectedVariant.technicalSpecifications.map(
+                        (spec, index) => (
+                          <ListItem key={index}>{spec}</ListItem>
+                        )
+                      )}
+                    </List>
+                  ) : (
+                    <Typography>
+                      {selectedVariant.technicalSpecifications}
+                    </Typography>
+                  )}
+                  <Typography variant="h6" sx={{ marginBottom: 1 }}>
+                    Features:
+                  </Typography>
+                  {Array.isArray(selectedVariant.features) ? (
+                    <List>
+                      {selectedVariant.features.map((feature, index) => (
+                        <ListItem key={index}>{feature}</ListItem>
+                      ))}
+                    </List>
+                  ) : (
+                    <Typography>{selectedVariant.features}</Typography>
+                  )}
+                </Paper>
+              </Grid>
+
             </Grid>
           </Grid>
         </Grid>

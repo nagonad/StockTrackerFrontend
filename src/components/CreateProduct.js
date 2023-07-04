@@ -27,7 +27,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function CreateProduct() {
+export default function CreateProduct({ themeMode }) {
   const classes = useStyles();
 
   const [isParentItem, setIsParentItem] = useState(true);
@@ -255,8 +255,9 @@ export default function CreateProduct() {
           </Box>
         </div>
         <Typography>Name of the Product</Typography>
-        <Box boxShadow={1} className="createProductBox">
+        <Box boxShadow={1} className={`createProductBox ${themeMode}`}>
           <TextField
+            className={`TextField ${themeMode}`}
             sx={{ width: "50%", paddingRight: "1rem" }}
             InputLabelProps={{ shrink: false }}
             placeholder="Name"
@@ -267,7 +268,7 @@ export default function CreateProduct() {
         </Box>
 
         <Typography sx={{ marginTop: "2rem" }}>Parent/Sub Item</Typography>
-        <Box boxShadow={1} className="createProductBox">
+        <Box boxShadow={1} className={`createProductBox ${themeMode}`}>
           <FormControl sx={{ width: "50%", paddingRight: "1rem" }}>
             <Select
               variant="standard"
@@ -296,7 +297,7 @@ export default function CreateProduct() {
           )}
         </Box>
         <Typography sx={{ marginTop: "2rem" }}>Category</Typography>
-        <Box boxShadow={1} className="createProductBox">
+        <Box boxShadow={1} className={`createProductBox ${themeMode}`}>
           <FormControl sx={{ width: "50%" }}>
             <Select
               variant="standard"
@@ -315,7 +316,7 @@ export default function CreateProduct() {
         {!isParentItem && (
           <>
             <Typography sx={{ marginTop: "2rem" }}>Quantity/Price</Typography>
-            <Box boxShadow={1} className="createProductBox">
+            <Box boxShadow={1} className={`createProductBox ${themeMode}`}>
               <FormControl sx={{ width: "50%", paddingRight: "1rem" }}>
                 <TextField
                   type="number"
@@ -338,7 +339,7 @@ export default function CreateProduct() {
               </FormControl>
             </Box>
             <Typography sx={{ marginTop: "2rem" }}>Size/Color</Typography>
-            <Box boxShadow={1} className="createProductBox">
+            <Box className={`createProductBox ${themeMode}`} boxShadow={1}>
               <FormControl sx={{ width: "50%", paddingRight: "1rem" }}>
                 <TextField
                   value={size}
@@ -365,7 +366,7 @@ export default function CreateProduct() {
             <Box
               boxShadow={1}
               sx={{ width: "100%" }}
-              className="createProductBox"
+              className={`createProductBox ${themeMode}`}
             >
               <div style={{ display: "flex" }}>
                 <TextField
@@ -419,7 +420,7 @@ export default function CreateProduct() {
             <Box
               boxShadow={1}
               sx={{ width: "100%" }}
-              className="createProductBox"
+              className={`createProductBox ${themeMode}`}
             >
               <div style={{ display: "flex" }}>
                 <TextField
@@ -465,7 +466,7 @@ export default function CreateProduct() {
               </div>
             </Box>
             <Typography sx={{ marginTop: "2rem" }}>Description</Typography>
-            <Box boxShadow={1} className="createProductBox">
+            <Box boxShadow={1} className={`createProductBox ${themeMode}`}>
               <TextField
                 sx={{ width: "100%", paddingRight: "1rem" }}
                 variant="standard"
@@ -479,7 +480,7 @@ export default function CreateProduct() {
         <Typography sx={{ marginTop: "2rem" }}>Upload Image</Typography>
         <Box
           boxShadow={1}
-          className="createProductBox"
+          className={`createProductBox ${themeMode}`}
           sx={{ display: "flex" }}
         >
           <div style={{ flex: "1" }}>

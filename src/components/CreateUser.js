@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function CreateUser({ setUser }) {
+export default function CreateUser({ themeMode, setUser }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -39,16 +39,18 @@ export default function CreateUser({ setUser }) {
 
       <label>Username: </label>
       <input
-        type="text"  // Corrected the input type to "text"
-        onChange={(e) => setUsername(e.target.value)}  // Changed setEmail to setUsername for the username field
+        type="text" // Corrected the input type to "text"
+        onChange={(e) => setUsername(e.target.value)} // Changed setEmail to setUsername for the username field
         value={username}
+        className={`value ${themeMode}`}
       />
 
       <label>Email: </label>
       <input
         type="email"
-        onChange={(e) => setEmail(e.target.value)}  // Changed setEmail to setEmail for the email field
+        onChange={(e) => setEmail(e.target.value)} // Changed setEmail to setEmail for the email field
         value={email}
+        className={`value ${themeMode}`}
       />
 
       <label>Password: </label>
@@ -56,9 +58,12 @@ export default function CreateUser({ setUser }) {
         type="password"
         onChange={(e) => setPassword(e.target.value)}
         value={password}
+        className={`value ${themeMode}`}
       />
 
-      <button class="submitcreateuser" type="submit">Create</button> 
+      <button class="submitcreateuser" type="submit">
+        Create
+      </button>
       {error && <div className="error">{error}</div>}
     </form>
   );
