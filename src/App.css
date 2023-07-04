@@ -222,10 +222,10 @@ input {
 }
 
 .tablist {
-  background-color: whitesmoke;
   margin-left: 20px;
   height: 50px;
   border-bottom: 1px dashed #9ca3af;
+  background-color: white;
 }
 
 .tab-panel {
@@ -637,11 +637,3 @@ body.dark {
   color: #ffffff;
 }
 
-.dark {
-  background-color: #333;
-  color: #fff;
-}
-.light {
-  background-color: #fff;
-  color: #333;
-}

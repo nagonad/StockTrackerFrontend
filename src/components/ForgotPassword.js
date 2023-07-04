@@ -20,14 +20,17 @@ function ForgotPassword() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const response = await fetch("http://localhost:8080/user/forgotpassword", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        // "Authorization": `Bearer ${user.token}`
-      },
-      body: JSON.stringify({ email }),
-    });
+    const response = await fetch(
+      "https://stocktrackerbackend.onrender.com/user/forgotpassword",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          // "Authorization": `Bearer ${user.token}`
+        },
+        body: JSON.stringify({ email }),
+      }
+    );
 
     const data = await response.json();
     if (!response.ok) {

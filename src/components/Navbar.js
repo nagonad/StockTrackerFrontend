@@ -16,8 +16,14 @@ import Tooltip from "@mui/material/Tooltip";
 import Logout from "@mui/icons-material/Logout";
 
 
-export default function Navbar({ user, setUser }) {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+export default function Navbar({
+  user,
+  setUser,
+  button,
+  themeMode,
+  toggleThemeMode,
+}) {
+  const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const logout = () => {
     localStorage.removeItem("user");
@@ -34,18 +40,6 @@ export default function Navbar({ user, setUser }) {
   function refreshPage() {
     window.parent.location = window.parent.location.href;
   }
-
-  const [theme, setTheme] = useState("light");
-  const toggleTheme = () => {
-    if (theme === "light") {
-      setTheme("dark");
-    } else {
-      setTheme("light");
-    }
-  };
-  useEffect(() => {
-    document.body.className = theme;
-  }, [theme]);
 
   return (
     <div>
@@ -128,7 +122,6 @@ export default function Navbar({ user, setUser }) {
           </Menu>
         </div>
       </Box>
-
     </div>
   );
 }
