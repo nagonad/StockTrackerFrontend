@@ -145,6 +145,7 @@ export default function EditProducts({ themeMode }) {
         open={dialogOpen}
         handleClickOpen={handleClickOpen}
         handleClose={handleClose}
+        themeMode={themeMode}
       ></EditProductDialog>
       <EditVariantDialog
         handleMessage={handleMessage}
@@ -554,6 +555,12 @@ function Row({
                               setSelectedVariant(variant);
                               setDialogTwoOpen(true);
                             }}
+                            style={{
+                              color:
+                                themeMode === "dark"
+                                  ? "rgb(86, 134, 225"
+                                  : "black",
+                            }}
                           >
                             <RiEdit2Line></RiEdit2Line>
                           </IconButton>
@@ -566,6 +573,12 @@ function Row({
                         >
                           <IconButton
                             onClick={() => deleteVariant(item._id, variant._id)}
+                            style={{
+                              color:
+                                themeMode === "dark"
+                                  ? "rgb(235, 50, 35)"
+                                  : "black",
+                            }}
                           >
                             <RxCross1></RxCross1>
                           </IconButton>

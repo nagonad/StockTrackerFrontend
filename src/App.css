@@ -643,3 +643,13 @@ body.dark {
 .label.dark {
   color: #ffffff;
 }
+
+.variant.dark {
+  background-color: #040107;
+  color: #ffffff;
+}
+
+.css-tlc64q-MuiPaper-root-MuiDialog-paper.variant.dark {
+  background-color: #1a1a1a;
+  color: #ffffff;
+}
