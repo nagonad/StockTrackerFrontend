@@ -76,7 +76,11 @@ function ProductDetailPage({ themeMode }) {
 
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
-      <Typography variant="h4" component="h1" sx={{ fontWeight: "bold", color: "#333", fontFamily: "Arial" }}>
+      <Typography
+        variant="h4"
+        component="h1"
+        sx={{ fontWeight: "bold", color: "#333", fontFamily: "Arial" }}
+      >
         {product.name}
       </Typography>
 
@@ -86,61 +90,62 @@ function ProductDetailPage({ themeMode }) {
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <Box sx={{ position: "relative", textAlign: "center" }}>
-              <IconButton
-              onClick={handlePreviousImage}
-              sx={{
-                position: "absolute",
-                left: "-60px",
-                top: "50%",
-                transform: "translateY(-50%)",
-                zIndex: 1,
-                "@media (max-width: 600px)": {
-                  left: "-20px",
-                },
-                "@media (min-width: 601px) and (max-width: 1024px)": {
-                  left: "-30px",
-                },
-              }}
-            >
-              <NavigateBefore />
-            </IconButton>
-            <CardMedia
-              component="img"
-              height="300"
-              image={selectedVariant.images[currentImageIndex]}
-              sx={{
-                borderRadius: "8px",
-                objectFit: "cover",
-                maxWidth: "70%",  
-                width: "auto", 
-                height: "auto", 
-              }}
-            />
-            <IconButton
-              onClick={handleNextImage}
-              sx={{
-                position: "absolute",
-                right: "100px",
-                top: "50%",
-                transform: "translateY(-50%)",
-                zIndex: 1,
-                "@media (max-width: 600px)": {
-                  right: "40px",
-                },
-                "@media (min-width: 696px) and (max-width: 1080px)": {
-                  right: "40px",
-                },
-              }}
-            >
-              <NavigateNext />
-            </IconButton>
-
-
-
+                <IconButton
+                  onClick={handlePreviousImage}
+                  sx={{
+                    position: "absolute",
+                    left: "-60px",
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    zIndex: 1,
+                    "@media (max-width: 600px)": {
+                      left: "-20px",
+                    },
+                    "@media (min-width: 601px) and (max-width: 1024px)": {
+                      left: "-30px",
+                    },
+                  }}
+                >
+                  <NavigateBefore />
+                </IconButton>
+                <CardMedia
+                  component="img"
+                  height="300"
+                  image={selectedVariant.images[currentImageIndex]}
+                  sx={{
+                    borderRadius: "8px",
+                    objectFit: "cover",
+                    maxWidth: "70%",
+                    width: "auto",
+                    height: "auto",
+                  }}
+                />
+                <IconButton
+                  onClick={handleNextImage}
+                  sx={{
+                    position: "absolute",
+                    right: "100px",
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    zIndex: 1,
+                    "@media (max-width: 600px)": {
+                      right: "40px",
+                    },
+                    "@media (min-width: 696px) and (max-width: 1080px)": {
+                      right: "40px",
+                    },
+                  }}
+                >
+                  <NavigateNext />
+                </IconButton>
               </Box>
             </Grid>
             <Grid item xs={12}>
-              <Typography variant="subtitle1" gutterBottom sx={{ fontWeight: "bold", color: "#555", fontFamily: "Arial" }}>
+              <Typography
+                variant="subtitle1"
+                gutterBottom
+                sx={{ fontWeight: "bold", color: "#555", fontFamily: "Arial" }}
+              >
                 Other Variants:
               </Typography>
               <Grid container spacing={2}>
@@ -161,7 +166,10 @@ function ProductDetailPage({ themeMode }) {
                         }}
                       >
                         <CardContent>
-                          <Typography variant="body2" sx={{ textAlign: "center", fontFamily: "Arial" }}>
+                          <Typography
+                            variant="body2"
+                            sx={{ textAlign: "center", fontFamily: "Arial" }}
+                          >
                             {variant.color} ({variant.size})
                           </Typography>
                           <CardMedia
@@ -180,79 +188,80 @@ function ProductDetailPage({ themeMode }) {
           </Grid>
         </Grid>
 
-
-          {/* Render variant details */}
-          <Grid item xs={12} sm={6}>
-  <Grid container spacing={2}>
-    <Grid item xs={12}>
-      <Paper
-        elevation={3}
-        sx={{
-          p: 3,
-          bgcolor: "#F8F8F8",
-          borderRadius: "8px",
-          width: "100%", 
-        }}
-      >
-        <Typography
-          variant="h6"
-          sx={{ color: "#444", marginBottom: 1 }}
-        >
-          Color: {selectedVariant.color}
-        </Typography>
-        <Typography variant="h6" sx={{ marginBottom: 1 }}>
-          Size: {selectedVariant.size}
-        </Typography>
-        <Typography variant="h6" sx={{ marginBottom: 1 }}>
-          Description: {selectedVariant.description}
-        </Typography>
-      </Paper>
-    </Grid>
-    <Grid item xs={12}>
-      <Paper
-        elevation={3}
-        sx={{
-          p: 3,
-          bgcolor: "#F8F8F8",
-          borderRadius: "8px",
-          width: "100%", 
-        }}
-      >
-        <Typography
-          variant="h6"
-          className={`createProductBox ${themeMode}`}
-          sx={{ marginBottom: 1 }}
-        >
-          Technical Specifications:
-        </Typography>
-        {Array.isArray(selectedVariant.technicalSpecifications) ? (
-          <List>
-            {selectedVariant.technicalSpecifications.map((spec, index) => (
-              <ListItem key={index}>{spec}</ListItem>
-            ))}
-          </List>
-        ) : (
-          <Typography>{selectedVariant.technicalSpecifications}</Typography>
-        )}
-        <Typography variant="h6" sx={{ marginBottom: 1 }}>
-          Features:
-        </Typography>
-        {Array.isArray(selectedVariant.features) ? (
-          <List>
-            {selectedVariant.features.map((feature, index) => (
-              <ListItem key={index}>{feature}</ListItem>
-            ))}
-          </List>
-        ) : (
-          <Typography>{selectedVariant.features}</Typography>
-        )}
-      </Paper>
-    </Grid>
-  </Grid>
-</Grid>
-
+        {/* Render variant details */}
+        <Grid item xs={12} sm={6}>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <Paper
+                elevation={3}
+                sx={{
+                  p: 3,
+                  bgcolor: "#F8F8F8",
+                  borderRadius: "8px",
+                  width: "100%",
+                }}
+              >
+                <Typography
+                  variant="h6"
+                  sx={{ color: "#444", marginBottom: 1 }}
+                >
+                  Color: {selectedVariant.color}
+                </Typography>
+                <Typography variant="h6" sx={{ marginBottom: 1 }}>
+                  Size: {selectedVariant.size}
+                </Typography>
+                <Typography variant="h6" sx={{ marginBottom: 1 }}>
+                  Description: {selectedVariant.description}
+                </Typography>
+              </Paper>
+            </Grid>
+            <Grid item xs={12}>
+              <Paper
+                elevation={3}
+                sx={{
+                  p: 3,
+                  bgcolor: "#trasparent",
+                  borderRadius: "8px",
+                  width: "100%",
+                }}
+              >
+                <Typography
+                  variant="h6"
+                  className={`createProductBox ${themeMode}`}
+                  sx={{ marginBottom: 1 }}
+                >
+                  Technical Specifications:
+                </Typography>
+                {Array.isArray(selectedVariant.technicalSpecifications) ? (
+                  <List>
+                    {selectedVariant.technicalSpecifications.map(
+                      (spec, index) => (
+                        <ListItem key={index}>{spec}</ListItem>
+                      )
+                    )}
+                  </List>
+                ) : (
+                  <Typography>
+                    {selectedVariant.technicalSpecifications}
+                  </Typography>
+                )}
+                <Typography variant="h6" sx={{ marginBottom: 1 }}>
+                  Features:
+                </Typography>
+                {Array.isArray(selectedVariant.features) ? (
+                  <List>
+                    {selectedVariant.features.map((feature, index) => (
+                      <ListItem key={index}>{feature}</ListItem>
+                    ))}
+                  </List>
+                ) : (
+                  <Typography>{selectedVariant.features}</Typography>
+                )}
+              </Paper>
+            </Grid>
+          </Grid>
         </Grid>
-
+      </Grid>
     </Container>
   );
 }

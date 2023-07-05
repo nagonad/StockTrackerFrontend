@@ -22,6 +22,7 @@ export default function EditProductDialog({
   setSelectedProduct,
   handleMessage,
   handleError,
+  themeMode,
 }) {
   const [selectedCategory, setSelectedCategory] = React.useState("");
 
@@ -52,8 +53,16 @@ export default function EditProductDialog({
 
   return (
     <div>
-      <Dialog maxWidth="sm" fullWidth open={open} onClose={handleClose}>
-        <DialogTitle>Edit Product - {selectedProduct.name}</DialogTitle>
+      <Dialog
+        maxWidth="sm"
+        fullWidth
+        open={open}
+        onClose={handleClose}
+        className={`variant ${themeMode}`}
+      >
+        <DialogTitle className={`variant ${themeMode}`}>
+          Edit Product - {selectedProduct.name}
+        </DialogTitle>
         <Divider></Divider>
         <FormControl sx={{ m: 2, minWidth: 120 }}>
           <Typography>Name</Typography>

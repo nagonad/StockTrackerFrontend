@@ -135,6 +135,7 @@ export default function EditVariantDialog({
         fullWidth
         open={dialogTwoOpen}
         onClose={() => setDialogTwoOpen(false)}
+        className={`variant ${themeMode}`}
       >
         <Box sx={{ maxHeight: "80vh", overflowY: "auto" }}>
           <DialogTitle ref={section1Ref} id="deneme">
