@@ -596,6 +596,11 @@ body.dark {
   height: 40px;
   border-radius: 4px;
 }
+
+.updatevariantnotificationbox {
+  padding: 0.5rem 1rem;
+}
+
 .editProductMainMessageContainer {
   margin: 1.5rem;
   margin-top: 0.5rem;
@@ -637,4 +642,3 @@ body.dark {
 .label.dark {
   color: #ffffff;
 }
-
