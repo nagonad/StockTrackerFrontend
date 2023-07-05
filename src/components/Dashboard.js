@@ -258,7 +258,8 @@ function Row({ item, resetCollapse, themeMode }) {
         key={item.id}
         sx={{
           "& > *": { borderBottom: "unset" },
-          backgroundColor: open ? "#black" : "inherit",
+          backgroundColor: item.quantity === 0 ? "#FF9494" : "inherit",
+          // backgroundColor: open ? "#black" : "inherit",
         }}
       >
         <TableCell>
