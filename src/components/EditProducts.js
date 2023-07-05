@@ -24,11 +24,12 @@ import Collapse from "@mui/material/Collapse";
 import { BsExclamationCircle } from "react-icons/bs";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import { BiEdit, BiCheckCircle } from "react-icons/bi";
-import { RiDeleteBin6Fill } from "react-icons/ri";
+import { RiDeleteBin6Fill, RiEdit2Line } from "react-icons/ri";
 import { RxCross1 } from "react-icons/rx";
 import PaginationDashboard from "./PaginationDashboard";
 import CreateProduct from "./CreateProduct";
 import EditProductDialog from "./EditProductDialog";
+import EditVariantDialog from "./EditVariantDialog";
 import _ from "lodash";
 
 export default function EditProducts({ themeMode }) {
@@ -39,8 +40,10 @@ export default function EditProducts({ themeMode }) {
   const [categories, setCategories] = useState([]);
 
   const [selectedProduct, setSelectedProduct] = useState({});
+  const [selectedVariant, setSelectedVariant] = useState({});
 
   const [dialogOpen, setDialogOpen] = React.useState(false);
+  const [dialogTwoOpen, setDialogTwoOpen] = React.useState(false);
 
   const [error, setError] = React.useState("");
   const [message, setMessage] = React.useState("");
@@ -48,10 +51,16 @@ export default function EditProducts({ themeMode }) {
   const handleMessage = (msg) => {
     setError("");
     setMessage(msg);
+    setTimeout(() => {
+      setMessage("");
+    }, "3000");
   };
   const handleError = (msg) => {
     setMessage("");
     setError(msg);
+    setTimeout(() => {
+      setError("");
+    }, "3000");
   };
 
   const handleClickOpen = () => {
@@ -137,6 +146,15 @@ export default function EditProducts({ themeMode }) {
         handleClickOpen={handleClickOpen}
         handleClose={handleClose}
       ></EditProductDialog>
+      <EditVariantDialog
+        handleMessage={handleMessage}
+        themeMode={themeMode}
+        dialogTwoOpen={dialogTwoOpen}
+        setDialogTwoOpen={setDialogTwoOpen}
+        selectedProduct={selectedProduct}
+        selectedVariant={selectedVariant}
+        setSelectedVariant={setSelectedVariant}
+      ></EditVariantDialog>
       <Tabs className={`tabsHeader ${themeMode}`}>
         <TabList className={`tablist ${themeMode}`}>
           <Tab
@@ -281,14 +299,16 @@ export default function EditProducts({ themeMode }) {
                     <TableCell
                       className={`TableCell ${themeMode}`}
                       align="right"
+                      sx={{ fontWeight: "600" }}
                     >
-                      #
+                      Edit
                     </TableCell>
                     <TableCell
                       className={`TableCell ${themeMode}`}
                       align="right"
+                      sx={{ fontWeight: "600" }}
                     >
-                      #
+                      Delete
                     </TableCell>
                   </TableRow>
                 </TableHead>
@@ -297,6 +317,8 @@ export default function EditProducts({ themeMode }) {
                     .slice(page * rowsPerPage, (page + 1) * rowsPerPage)
                     .map((item) => (
                       <Row
+                        setSelectedVariant={setSelectedVariant}
+                        setDialogTwoOpen={setDialogTwoOpen}
                         setSelectedProduct={setSelectedProduct}
                         handleClickOpen={handleClickOpen}
                         deleteVariant={deleteVariant}
@@ -336,6 +358,8 @@ function Row({
   themeMode,
   handleClickOpen,
   setSelectedProduct,
+  setDialogTwoOpen,
+  setSelectedVariant,
 }) {
   const { row } = item;
   const [open, setOpen] = React.useState(false);
@@ -427,7 +451,7 @@ function Row({
             backgroundColor: "#F3F4F6",
             backgroundColor: themeMode === "dark" ? "black" : "#F3F4F6",
           }}
-          colSpan={7}
+          colSpan={9}
         >
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
@@ -470,7 +494,15 @@ function Row({
                         color: themeMode === "dark" ? "white" : "black",
                       }}
                     >
-                      #
+                      Edit
+                    </TableCell>
+                    <TableCell
+                      align="right"
+                      style={{
+                        color: themeMode === "dark" ? "white" : "black",
+                      }}
+                    >
+                      Delete
                     </TableCell>
                   </TableRow>
                 </TableHead>
@@ -509,6 +541,22 @@ function Row({
                           }}
                         >
                           {variant.price}
+                        </TableCell>
+                        <TableCell
+                          align="right"
+                          style={{
+                            color: themeMode === "dark" ? "white" : "black",
+                          }}
+                        >
+                          <IconButton
+                            onClick={() => {
+                              setSelectedProduct(item);
+                              setSelectedVariant(variant);
+                              setDialogTwoOpen(true);
+                            }}
+                          >
+                            <RiEdit2Line></RiEdit2Line>
+                          </IconButton>
                         </TableCell>
                         <TableCell
                           align="right"
