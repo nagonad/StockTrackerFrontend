@@ -1,70 +1,59 @@
-# Getting Started with Create React App
+# Stock Tracker
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+Stock Tracker is a web application for managing and tracking product inventory. It allows you to add, edit, and delete products, view stock information, and search for specific products. This application is built with React for the front-end and Node.js (Express) for the back-end.
 
-In the project directory, you can run:
+## Features
+- View a list of products with their details, including name, category, quantity, price, and total price.
+- Add new products with name, category, quantity, price, and an optional image.
+- Edit existing products, including updating their name, category, quantity, and price.
+- Delete products from the inventory.
+- Search for specific products by name.
+- View the total number of products, total value, out-of-stock count, and number of categories.
 
-### `npm start`
+## Getting Started
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Prerequisites
+  - Node.js 
+  - MongoDB
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Installation
+1. Clone the repository:
 
-### `npm test`
+```git clone https://github.com/your-username/stock-tracker.git 11 ```
+``` cd stock-tracker ```
+```npm install ```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Start the server:
+``` npm run dev```
+``` cd client ```
+``` npm install ```
 
-### `npm run build`
+### Start the client:
+``` npm start ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Folder Structure
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+#### client: Contains the React front-end code.
+####  controllers: Contains the server-side logic for handling requests.
+####  middlewares: Contains custom middleware functions.
+####  dbinit: Contains the Mongoose models for interacting with the database.
+####  routes: Contains the API routes.
+####  schemas: Contains the Mongoose schemas for defining the data structure.
+#### server.js: Entry point for the server.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+## Technologies Used
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+####  React
+####  Node.js (Express)
+####  MongoDB (Mongoose)
+####  Axios
+####  Material-UI
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Deployment Link: https://snazzy-tiramisu-8503f3.netlify.app/
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+  
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+  
