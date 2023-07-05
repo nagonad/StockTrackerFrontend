@@ -109,7 +109,7 @@ export default function EditVariantDialog({
     } else {
       try {
         const response = await axios.put(
-          `http://localhost:8080/stockinfo/variant/${selectedProduct._id}/${selectedVariant._id}`,
+          `https://stocktrackerbackend.onrender.com/stockinfo/variant/${selectedProduct._id}/${selectedVariant._id}`,
           newSelectedVariant
         );
 
