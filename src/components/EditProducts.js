@@ -32,6 +32,21 @@ import EditProductDialog from "./EditProductDialog";
 import EditVariantDialog from "./EditVariantDialog";
 import _ from "lodash";
 
+const categoriesArr = [
+  "Fitness",
+  "Electronics",
+  "Home & Kitchen",
+  "Eyewear",
+  "Furniture",
+  "Computer Accessories",
+  "Musical Instruments",
+  "Kitchen Appliances",
+  "Travel",
+  "Outdoor",
+  "Accessories",
+  "Clothing",
+];
+
 export default function EditProducts({ themeMode }) {
   const [resetCollapse, setResetCollapse] = useState(false);
   const [stockInfo, setStockInfo] = useState([]);
@@ -97,7 +112,6 @@ export default function EditProducts({ themeMode }) {
         console.error("Data from server is not an array:", response.data);
       } else {
         setStockInfo(response.data);
-        setCategories(_.uniq(_.map(response.data, "category")));
       }
     } catch (error) {
       console.error("Failed to fetch stockInfo", error);
@@ -132,6 +146,7 @@ export default function EditProducts({ themeMode }) {
 
   useEffect(() => {
     fetchStockInfo();
+    setCategories(categoriesArr.sort());
   }, []);
 
   return (
