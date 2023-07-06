@@ -27,6 +27,21 @@ const useStyles = makeStyles({
   },
 });
 
+const categoriesArr = [
+  "Fitness",
+  "Electronics",
+  "Home & Kitchen",
+  "Eyewear",
+  "Furniture",
+  "Computer Accessories",
+  "Musical Instruments",
+  "Kitchen Appliances",
+  "Travel",
+  "Outdoor",
+  "Accessories",
+  "Clothing",
+];
+
 export default function CreateProduct({ themeMode }) {
   const classes = useStyles();
 
@@ -126,7 +141,6 @@ export default function CreateProduct({ themeMode }) {
       if (!Array.isArray(response.data)) {
         console.error("Data from server is not an array:", response.data);
       } else {
-        setCategories(_.uniq(_.map(response.data, "category")));
         setStockInfo(response.data);
       }
     } catch (error) {
@@ -189,6 +203,7 @@ export default function CreateProduct({ themeMode }) {
 
   useEffect(() => {
     fetchStockInfo();
+    setCategories(categoriesArr.sort());
   }, []);
 
   useEffect(() => {
