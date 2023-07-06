@@ -146,6 +146,7 @@ export default function EditProducts({ themeMode }) {
 
   useEffect(() => {
     fetchStockInfo();
+    console.log(categoriesArr.sort());
     setCategories(categoriesArr.sort());
   }, []);
 
